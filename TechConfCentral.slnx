@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TechConfCentral.BLL/TechConfCentral.BLL.csproj" Id="a620e0c9-1574-4c53-bfc3-100ffb81273b" />
+  <Project Path="TechConfCentral.DAL/TechConfCentral.DAL.csproj" Id="4ec9d2c8-c27a-4a96-b9ab-b2238cca1983" />
+  <Project Path="TechConfCentral.Models/TechConfCentral.Models.csproj" Id="77ce4763-9f4d-4e9d-8135-d9f6c4eafb5c" />
+  <Project Path="TechConfCentral/TechConfCentral.csproj" />
+</Solution>
