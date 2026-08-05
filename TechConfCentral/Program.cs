@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TechConfCentral.Data;
+using TechConfCentral.DAL;
 
 namespace TechConfCentral
 {
@@ -12,13 +12,20 @@ namespace TechConfCentral
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // DbContext
+            builder.Services.AddDbContext<TechConfCentralContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            // Identity
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<TechConfCentralContext>();
+
+            // MVC
             builder.Services.AddControllersWithViews();
+
+            // Developer exception filter
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var app = builder.Build();
 
@@ -39,6 +46,7 @@ namespace TechConfCentral
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
