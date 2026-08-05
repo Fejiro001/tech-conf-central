@@ -7,6 +7,7 @@
         // Foreign Keys
         public int TalkId { get; set; }
         public Talk Talk { get; set; }
-        // TODO: Add User Identity key when ready
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

@@ -18,6 +18,7 @@
         public Room Room { get; set; }
         public int SpeakerId { get; set; }
         public Speaker Speaker { get; set; }
+        // Many-to-many relationship
         public ICollection<SavedTalk> SavedTalks { get; set; } = new List<SavedTalk>();
     }
 }
