@@ -12,5 +12,7 @@
         public string City { get; set; }
         public string StateOrProvince { get; set; }
         public string Country { get; set; }
+        // N:1 Talk to Conference
+        public ICollection<Talk> Talks { get; set; } = new List<Talk>();
     }
 }

@@ -9,16 +9,19 @@
         public DateTime EndDateTime { get; set; }
         public bool IsFeatured { get; set; } = false;
         public bool IsKeynote { get; set; } = false;
-        // Foreign Keys
+        // 1:N Conference to Talk
         public int ConferenceId { get; set; }
         public Conference Conference { get; set; }
+        // 1:N Track to Talk
         public int TrackId { get; set; }
         public Track Track { get; set; }
+        // 1:N Room to Talk
         public int RoomId { get; set; }
         public Room Room { get; set; }
+        // 1:N Speaker to Talk
         public int SpeakerId { get; set; }
         public Speaker Speaker { get; set; }
-        // Many-to-many relationship
+        // N:N ApplicationUser to Talk
         public ICollection<SavedTalk> SavedTalks { get; set; } = new List<SavedTalk>();
     }
 }
