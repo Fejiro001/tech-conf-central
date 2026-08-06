@@ -10,5 +10,7 @@
         public string Biography { get; set; }
         public string? ProfileImage { get; set; }
         public bool IsFeatured { get; set; } = false;
+        // N:1 Talk to Speaker
+        public ICollection<Talk> Talks { get; set; } = new List<Talk>();
     }
 }
