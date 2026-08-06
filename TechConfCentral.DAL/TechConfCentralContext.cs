@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.DAL
 {
-    public class TechConfCentralContext : DbContext
+    public class TechConfCentralContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<Track> Tracks { get; set; }
@@ -15,6 +17,91 @@ namespace TechConfCentral.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Primary Keys
+            modelBuilder.Entity<Conference>()
+                .HasKey(c => c.Id);
+            modelBuilder.Entity<Track>()
+                .HasKey(t => t.Id);
+            modelBuilder.Entity<Speaker>()
+                .HasKey(s => s.Id);
+            modelBuilder.Entity<Talk>()
+                .HasKey(t => t.Id);
+            modelBuilder.Entity<Room>()
+                .HasKey(r => r.Id);
+            modelBuilder.Entity<SavedTalk>()
+                .HasKey(st => st.Id);
+
+            // Properties
+            modelBuilder.Entity<Conference>(entity =>
+            {
+                // Not use EF's default pluralization
+                entity.ToTable("Conference");
+
+                entity.Property(c => c.Name).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Tagline).IsRequired().HasMaxLength(255);
+                entity.Property(c => c.Description).HasMaxLength(255);
+
+                entity.Property(c => c.StartDate).IsRequired();
+                entity.Property(c => c.EndDate).IsRequired();
+
+                entity.Property(c => c.Venue).IsRequired().HasMaxLength(255);
+                entity.Property(c => c.City).IsRequired().HasMaxLength(125);
+                entity.Property(c => c.StateOrProvince).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.Country).IsRequired().HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Track>(entity =>
+            {
+                entity.ToTable("Track");
+
+                entity.Property(t => t.Name).IsRequired().HasMaxLength(100);
+                entity.Property(t => t.Description).HasMaxLength(255);
+                entity.Property(t => t.Color).HasMaxLength(7);
+            });
+
+            modelBuilder.Entity<Speaker>(entity =>
+            {
+                entity.ToTable("Speaker");
+
+                entity.Property(s => s.FirstName).IsRequired().HasMaxLength(100);
+                entity.Property(s => s.LastName).IsRequired().HasMaxLength(100);
+                entity.Property(s => s.JobTitle).IsRequired().HasMaxLength(255);
+                entity.Property(s => s.Company).IsRequired().HasMaxLength(100);
+
+                entity.Property(s => s.Biography).IsRequired();
+                entity.Property(s => s.ProfileImage).HasMaxLength(255);
+                entity.Property(s => s.IsFeatured).IsRequired().HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<Talk>(entity =>
+            {
+                entity.ToTable("Talk");
+
+                entity.Property(t => t.Title).IsRequired().HasMaxLength(255);
+                entity.Property(t => t.Description).IsRequired();
+
+                entity.Property(t => t.StartDateTime).IsRequired();
+                entity.Property(t => t.EndDateTime).IsRequired();
+
+                entity.Property(t => t.IsFeatured).IsRequired().HasDefaultValue(false);
+                entity.Property(t => t.IsKeynote).IsRequired().HasDefaultValue(false);
+            });
+
+            modelBuilder.Entity<Room>(entity =>
+            {
+                entity.ToTable("Room");
+
+                entity.Property(r => r.Name).IsRequired().HasMaxLength(100);
+                entity.Property(r => r.Capacity).IsRequired();
+            });
+
+            modelBuilder.Entity<SavedTalk>(entity =>
+            {
+                entity.ToTable("SavedTalk");
+
+                entity.Property(t => t.SavedAt).IsRequired();
+            });
         }
     }
 }
