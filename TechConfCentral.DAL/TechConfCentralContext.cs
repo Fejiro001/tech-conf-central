@@ -147,6 +147,9 @@ namespace TechConfCentral.DAL
                 entity.HasIndex(st => new { st.UserId, st.TalkId })
                     .IsUnique();
             });
+
+            // Seed data
+            modelBuilder.Seed();
         }
     }
 }
