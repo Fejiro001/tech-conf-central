@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.DAL
 {
-    public class TechConfCentralContext : IdentityDbContext<IdentityUser>
+    public class TechConfCentralContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<Track> Tracks { get; set; }
@@ -128,6 +127,26 @@ namespace TechConfCentral.DAL
                 .WithOne(t => t.Speaker)
                 .HasForeignKey(t => t.SpeakerId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // --- N:N ApplicationUser to Talk ---
+            modelBuilder.Entity<SavedTalk>(entity =>
+            {
+                // 1:N User to SavedTalk
+                entity.HasOne(st => st.User)
+                    .WithMany(u => u.SavedTalks)
+                    .HasForeignKey(st => st.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // 1:N Talk to SavedTalk
+                entity.HasOne(st => st.Talk)
+                    .WithMany(u => u.SavedTalks)
+                    .HasForeignKey(st => st.TalkId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // Unique Constraint: Prevent duplicate saves for same user and talk
+                entity.HasIndex(st => new { st.UserId, st.TalkId })
+                    .IsUnique();
+            });
         }
     }
 }
