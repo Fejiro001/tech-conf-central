@@ -139,7 +139,7 @@ namespace TechConfCentral.DAL
 
                 // 1:N Talk to SavedTalk
                 entity.HasOne(st => st.Talk)
-                    .WithMany(u => u.SavedTalks)
+                    .WithMany(t => t.SavedTalks)
                     .HasForeignKey(st => st.TalkId)
                     .OnDelete(DeleteBehavior.Cascade);
 
