@@ -18,7 +18,7 @@ namespace TechConfCentral.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            // Primary Keys
+            // --- Primary Keys ---
             modelBuilder.Entity<Conference>()
                 .HasKey(c => c.Id);
             modelBuilder.Entity<Track>()
@@ -32,7 +32,7 @@ namespace TechConfCentral.DAL
             modelBuilder.Entity<SavedTalk>()
                 .HasKey(st => st.Id);
 
-            // Properties
+            // --- Properties ---
             modelBuilder.Entity<Conference>(entity =>
             {
                 // Not use EF's default pluralization
@@ -55,9 +55,9 @@ namespace TechConfCentral.DAL
             {
                 entity.ToTable("Track");
 
-                entity.Property(t => t.Name).IsRequired().HasMaxLength(100);
-                entity.Property(t => t.Description).HasMaxLength(255);
-                entity.Property(t => t.Color).HasMaxLength(7);
+                entity.Property(tr => tr.Name).IsRequired().HasMaxLength(100);
+                entity.Property(tr => tr.Description).HasMaxLength(255);
+                entity.Property(tr => tr.Color).HasMaxLength(7);
             });
 
             modelBuilder.Entity<Speaker>(entity =>
@@ -100,8 +100,34 @@ namespace TechConfCentral.DAL
             {
                 entity.ToTable("SavedTalk");
 
-                entity.Property(t => t.SavedAt).IsRequired();
+                entity.Property(st => st.SavedAt).IsRequired();
             });
+
+            // --- Relationships ---
+            // 1:N Conference to Talk
+            modelBuilder.Entity<Conference>()
+                .HasMany(c => c.Talks)
+                .WithOne(t => t.Conference)
+                .HasForeignKey(t => t.ConferenceId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // 1:N Track to Talk
+            modelBuilder.Entity<Track>()
+                .HasMany(tr => tr.Talks)
+                .WithOne(t => t.Track)
+                .HasForeignKey(t => t.TrackId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // 1:N Room to Talk
+            modelBuilder.Entity<Room>()
+                .HasMany(r => r.Talks)
+                .WithOne(t => t.Room)
+                .HasForeignKey(t => t.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
+            // 1:N Speaker to Talk
+            modelBuilder.Entity<Speaker>()
+                .HasMany(s => s.Talks)
+                .WithOne(t => t.Speaker)
+                .HasForeignKey(t => t.SpeakerId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
