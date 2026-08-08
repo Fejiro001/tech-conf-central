@@ -13,13 +13,16 @@ namespace TechConfCentral.DAL
         // Get all speakers
         public async Task<List<Speaker>> GetSpeakersAsync()
         {
-            return await _context.Speakers.ToListAsync();
+            return await _context.Speakers
+                .AsNoTracking()
+                .ToListAsync();
         }
         // Get all featured speakers
         public async Task<List<Speaker>> GetFeaturedSpeakersAsync()
         {
             return await _context.Speakers
                 .Where(s => s.IsFeatured)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get speaker by id
@@ -32,6 +35,7 @@ namespace TechConfCentral.DAL
         {
             return await _context.Speakers
                 .Include(s => s.Talks)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
         // Create speaker

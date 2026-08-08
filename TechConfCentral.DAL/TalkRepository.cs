@@ -15,6 +15,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.ConferenceId == conferenceId)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Talks By Track
@@ -22,6 +23,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.TrackId == trackId)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Talks Associated with Speaker
@@ -29,6 +31,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.SpeakerId == speakerId)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Talks by Room
@@ -36,6 +39,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.RoomId == roomId)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Featured Talks
@@ -43,6 +47,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.IsFeatured)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Keynote Talk
@@ -50,6 +55,7 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .Where(t => t.IsKeynote)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
         // Get Talks for Schedule
@@ -57,12 +63,14 @@ namespace TechConfCentral.DAL
         {
             return await TalksWithDetails()
                 .OrderBy(t => t.StartDateTime)
+                .AsNoTracking()
                 .ToListAsync();
         }
         // Get Talk by id
         public async Task<Talk?> GetTalkByIdAsync(int id)
         {
             return await TalksWithDetails()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 

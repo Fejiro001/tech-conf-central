@@ -13,7 +13,9 @@ namespace TechConfCentral.DAL
         // Get all rooms
         public async Task<List<Room>> GetRoomsAsync()
         {
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms
+                .AsNoTracking()
+                .ToListAsync();
         }
         // Get room by id
         public async Task<Room?> GetRoomByIdAsync(int id)

@@ -13,7 +13,9 @@ namespace TechConfCentral.DAL
         // Get all tracks
         public async Task<List<Track>> GetTracksAsync()
         {
-            return await _context.Tracks.ToListAsync();
+            return await _context.Tracks
+                .AsNoTracking()
+                .ToListAsync();
         }
         // Get track by id
         public async Task<Track?> GetTrackByIdAsync(int id)

@@ -13,7 +13,9 @@ namespace TechConfCentral.DAL
         // Get all conferences
         public async Task<List<Conference>> GetConferencesAsync()
         {
-            return await _context.Conferences.ToListAsync();
+            return await _context.Conferences
+                .AsNoTracking()
+                .ToListAsync();
         }
         // Get conference by id
         public async Task<Conference?> GetConferenceByIdAsync(int id)
@@ -25,6 +27,7 @@ namespace TechConfCentral.DAL
         {
             return await _context.Conferences
                 .Include(c => c.Talks)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         // Create conference
