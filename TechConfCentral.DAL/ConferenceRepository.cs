@@ -16,7 +16,7 @@ namespace TechConfCentral.DAL
             return await _context.Conferences.ToListAsync();
         }
         // Get conference by id
-        public async Task<Conference> GetConferenceByIdAsync(int id)
+        public async Task<Conference?> GetConferenceByIdAsync(int id)
         {
             return await _context.Conferences.FindAsync(id);
         }
