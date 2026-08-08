@@ -10,7 +10,7 @@ namespace TechConfCentral.DAL
         {
             _context = context;
         }
-        // Get all conference
+        // Get all conferences
         public async Task<List<Conference>> GetConferencesAsync()
         {
             return await _context.Conferences.ToListAsync();
