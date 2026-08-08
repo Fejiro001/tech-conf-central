@@ -1,0 +1,48 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TechConfCentral.Models;
+
+namespace TechConfCentral.DAL
+{
+    public class SavedTalkRepository
+    {
+        private readonly TechConfCentralContext _context;
+        public SavedTalkRepository(TechConfCentralContext context)
+        {
+            _context = context;
+        }
+        // Get all Saved Talks
+        // User Id is a string because of AspnetUsers
+        public async Task<List<SavedTalk>> GetSavedTalksForUserAsync(string userId)
+        {
+            return await _context.SavedTalks
+                .Where(st => st.UserId == userId)
+                .Include(st => st.Talk)
+                .ToListAsync();
+        }
+        // Save a Talk
+        public async Task SaveTalkAsync(SavedTalk savedtalk)
+        {
+            await _context.SavedTalks.AddAsync(savedtalk);
+        }
+        // Delete Saved Talk
+        public async Task RemoveSavedTalkAsync(int id)
+        {
+            SavedTalk? savedtalk = await _context.SavedTalks.FindAsync(id);
+            if (savedtalk != null)
+            {
+                _context.SavedTalks.Remove(savedtalk);
+            }
+        }
+        // Check if a Talk is saved
+        public async Task<bool> IsTalkSavedAsync(string userId, int talkId)
+        {
+            return await _context.SavedTalks
+                .AnyAsync(st => st.UserId == userId &&
+                                st.TalkId == talkId);
+        }
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+}
