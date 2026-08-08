@@ -20,6 +20,13 @@ namespace TechConfCentral.DAL
         {
             return await _context.Conferences.FindAsync(id);
         }
+        // Get conference by id with its Talks
+        public async Task<Conference?> GetConferenceWithTalksAsync(int id)
+        {
+            return await _context.Conferences
+                .Include(c => c.Talks)
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
         // Create conference
         public async Task AddConferenceAsync(Conference conference)
         {
