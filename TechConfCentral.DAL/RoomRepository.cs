@@ -41,6 +41,12 @@ namespace TechConfCentral.DAL
                 _context.Rooms.Remove(room);
             }
         }
+        // Check if a track name already exists
+        public async Task<bool> RoomNameExistsAsync(string name)
+        {
+            return await _context.Rooms
+                .AnyAsync(r => r.Name.ToLower() == name.ToLower());
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
