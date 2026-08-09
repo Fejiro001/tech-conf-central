@@ -41,6 +41,12 @@ namespace TechConfCentral.DAL
                 _context.Tracks.Remove(track);
             }
         }
+        // Check if a track name already exists
+        public async Task<bool> TrackNameExistsAsync(string name)
+        {
+            return await _context.Tracks
+                .AnyAsync(t => t.Name.ToLower() == name.ToLower());
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
