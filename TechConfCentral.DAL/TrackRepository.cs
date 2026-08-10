@@ -42,10 +42,12 @@ namespace TechConfCentral.DAL
             }
         }
         // Check if a track name already exists
-        public async Task<bool> TrackNameExistsAsync(string name)
+        public async Task<bool> TrackNameExistsAsync(string trackName, int trackId)
         {
             return await _context.Tracks
-                .AnyAsync(t => t.Name.ToLower() == name.ToLower());
+                .AnyAsync(t =>
+                t.Name.ToLower() == trackName.ToLower() &&
+                t.Id != trackId);
         }
         public async Task SaveChangesAsync()
         {

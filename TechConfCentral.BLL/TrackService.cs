@@ -23,7 +23,7 @@ namespace TechConfCentral.BLL
         // Create track
         public async Task AddTrackAsync(Track track)
         {
-            bool nameExists = await _repository.TrackNameExistsAsync(track.Name);
+            bool nameExists = await _repository.TrackNameExistsAsync(track.Name, track.Id);
 
             if (nameExists)
             {
@@ -36,7 +36,7 @@ namespace TechConfCentral.BLL
         // Update track
         public async Task UpdateTrackAsync(Track track)
         {
-            bool nameExists = await _repository.TrackNameExistsAsync(track.Name);
+            bool nameExists = await _repository.TrackNameExistsAsync(track.Name, track.Id);
 
             if (nameExists)
             {
