@@ -23,12 +23,7 @@ namespace TechConfCentral.BLL
         // Create room
         public async Task AddRoomAsync(Room room)
         {
-            bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
-
-            if (nameExists)
-            {
-                throw new ArgumentException($"A room with the name '{room.Name}' already exists.");
-            }
+            await ValidateRoomAsync(room);
 
             await _repository.AddRoomAsync(room);
             await _repository.SaveChangesAsync();
@@ -36,12 +31,7 @@ namespace TechConfCentral.BLL
         // Update room
         public async Task UpdateRoomAsync(Room room)
         {
-            bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
-
-            if (nameExists)
-            {
-                throw new ArgumentException($"A room with the name '{room.Name}' already exists.");
-            }
+            await ValidateRoomAsync(room);
 
             _repository.UpdateRoom(room);
             await _repository.SaveChangesAsync();
@@ -51,6 +41,15 @@ namespace TechConfCentral.BLL
         {
             await _repository.DeleteRoomAsync(id);
             await _repository.SaveChangesAsync();
+        }
+        private async Task ValidateRoomAsync(Room room)
+        {
+            bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
+
+            if (nameExists)
+            {
+                throw new ArgumentException($"A room with the name '{room.Name}' already exists.");
+            }
         }
     }
 }

@@ -28,10 +28,7 @@ namespace TechConfCentral.BLL
         // Create conference
         public async Task AddConferenceAsync(Conference conference)
         {
-            if (conference.StartDate >= conference.EndDate)
-            {
-                throw new ArgumentException("End date must be after start date.");
-            }
+            ValidateConference(conference);
 
             await _repository.AddConferenceAsync(conference);
             await _repository.SaveChangesAsync();
@@ -39,10 +36,7 @@ namespace TechConfCentral.BLL
         // Update conference
         public async Task UpdateConferenceAsync(Conference conference)
         {
-            if (conference.StartDate >= conference.EndDate)
-            {
-                throw new ArgumentException("End date must be after start date.");
-            }
+            ValidateConference(conference);
 
             _repository.UpdateConference(conference);
             await _repository.SaveChangesAsync();
@@ -52,6 +46,13 @@ namespace TechConfCentral.BLL
         {
             await _repository.DeleteConferenceAsync(id);
             await _repository.SaveChangesAsync();
+        }
+        private static void ValidateConference(Conference conference)
+        {
+            if (conference.StartDate >= conference.EndDate)
+            {
+                throw new ArgumentException("End date must be after start date.");
+            }
         }
     }
 }

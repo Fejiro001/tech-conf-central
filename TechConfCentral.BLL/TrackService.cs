@@ -23,12 +23,7 @@ namespace TechConfCentral.BLL
         // Create track
         public async Task AddTrackAsync(Track track)
         {
-            bool nameExists = await _repository.TrackNameExistsAsync(track.Name, track.Id);
-
-            if (nameExists)
-            {
-                throw new ArgumentException($"A track with the name '{track.Name}' already exists.");
-            }
+            await ValidateTrackAsync(track);
 
             await _repository.AddTrackAsync(track);
             await _repository.SaveChangesAsync();
@@ -36,12 +31,7 @@ namespace TechConfCentral.BLL
         // Update track
         public async Task UpdateTrackAsync(Track track)
         {
-            bool nameExists = await _repository.TrackNameExistsAsync(track.Name, track.Id);
-
-            if (nameExists)
-            {
-                throw new ArgumentException($"A track with the name '{track.Name}' already exists.");
-            }
+            await ValidateTrackAsync(track);
 
             _repository.UpdateTrack(track);
             await _repository.SaveChangesAsync();
@@ -51,6 +41,15 @@ namespace TechConfCentral.BLL
         {
             await _repository.DeleteTrackAsync(id);
             await _repository.SaveChangesAsync();
+        }
+        private async Task ValidateTrackAsync(Track track)
+        {
+            bool nameExists = await _repository.TrackNameExistsAsync(track.Name, track.Id);
+
+            if (nameExists)
+            {
+                throw new ArgumentException($"A track with the name '{track.Name}' already exists.");
+            }
         }
     }
 }
