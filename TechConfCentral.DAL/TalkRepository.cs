@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.DAL
@@ -94,10 +95,11 @@ namespace TechConfCentral.DAL
             }
         }
         // Check if a room is already booked during specific time frame
-        public async Task<bool> IsRoomBookedAsync(int roomId, DateTime startTime, DateTime endTime)
+        public async Task<bool> IsRoomBookedAsync(int roomId, DateTime startTime, DateTime endTime, int? excludeTalkId = null)
         {
             return await _context.Talks
                 .AnyAsync(t => t.RoomId == roomId &&
+                                t.Id != excludeTalkId &&
                                 startTime < t.EndDateTime &&
                                 endTime > t.StartDateTime);
         }

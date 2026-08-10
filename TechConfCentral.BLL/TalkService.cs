@@ -54,28 +54,16 @@ namespace TechConfCentral.BLL
         // Create Talk
         public async Task AddTalkAsync(Talk talk)
         {
-            var roomTalks = await GetTalksByRoomAsync(talk.RoomId);
+            await ValidateTalkAsync(talk, talk.Id);
 
-            if (talk.EndDateTime < talk.StartDateTime)
-            {
-                throw new ArgumentException("End date must be after start date.");
-            }
-
-            bool isRoomBooked = await _repository.IsRoomBookedAsync(
-                talk.RoomId,
-                talk.StartDateTime,
-                talk.EndDateTime);
-
-            if (isRoomBooked)
-            {
-                throw new InvalidOperationException("The selected room is already booked during this time frame.");
-            }
             await _repository.AddTalkAsync(talk);
             await _repository.SaveChangesAsync();
         }
         // Update Talk
-        public async Task UpdateTalk(Talk talk)
+        public async Task UpdateTalkAsync(Talk talk)
         {
+            await ValidateTalkAsync(talk, null);
+
             _repository.UpdateTalk(talk);
             await _repository.SaveChangesAsync();
         }
@@ -84,6 +72,24 @@ namespace TechConfCentral.BLL
         {
             await _repository.DeleteTalkAsync(id);
             await _repository.SaveChangesAsync();
+        }
+        private async Task ValidateTalkAsync(Talk talk, int? excludeTalkId)
+        {
+            if (talk.EndDateTime <= talk.StartDateTime)
+            {
+                throw new ArgumentException("End date must be after start date.");
+            }
+
+            bool isRoomBooked = await _repository.IsRoomBookedAsync(
+                talk.RoomId,
+                talk.StartDateTime,
+                talk.EndDateTime,
+                excludeTalkId);
+
+            if (isRoomBooked)
+            {
+                throw new InvalidOperationException("The selected room is already booked during this time frame.");
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace TechConfCentral.BLL
 
             if (isTalkSaved)
             {
-                throw new Exception("Talk has already been saved.");
+                throw new InvalidOperationException("The talk has already been saved.");
             }
             await _repository.SaveTalkAsync(savedtalk);
             await _repository.SaveChangesAsync();
