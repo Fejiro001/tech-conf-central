@@ -93,6 +93,14 @@ namespace TechConfCentral.DAL
                 _context.Talks.Remove(talk);
             }
         }
+        // Check if a room is already booked during specific time frame
+        public async Task<bool> IsRoomBookedAsync(int roomId, DateTime startTime, DateTime endTime)
+        {
+            return await _context.Talks
+                .AnyAsync(t => t.RoomId == roomId &&
+                                startTime < t.EndDateTime &&
+                                endTime > t.StartDateTime);
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
