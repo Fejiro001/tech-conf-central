@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TechConfCentral.BLL;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.Controllers
@@ -7,15 +8,21 @@ namespace TechConfCentral.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ConferenceService _conferenceService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ConferenceService conferenceService)
         {
             _logger = logger;
+            _conferenceService = conferenceService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var vm = new HomeViewModel
+            {
+                Conferences = await _conferenceService.GetConferencesAsync()
+            };
+            return View(vm);
         }
 
         public IActionResult Privacy()
