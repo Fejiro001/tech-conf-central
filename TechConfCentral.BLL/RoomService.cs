@@ -23,7 +23,7 @@ namespace TechConfCentral.BLL
         // Create room
         public async Task AddRoomAsync(Room room)
         {
-            bool nameExists = await _repository.RoomNameExistsAsync(room.Name);
+            bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
 
             if (nameExists)
             {
@@ -36,7 +36,7 @@ namespace TechConfCentral.BLL
         // Update room
         public async Task UpdateRoomAsync(Room room)
         {
-            bool nameExists = await _repository.RoomNameExistsAsync(room.Name);
+            bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
 
             if (nameExists)
             {
