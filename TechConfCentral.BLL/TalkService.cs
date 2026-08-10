@@ -6,9 +6,11 @@ namespace TechConfCentral.BLL
     public class TalkService
     {
         private readonly TalkRepository _repository;
-        public TalkService(TalkRepository repository)
+        private readonly ConferenceRepository _conferenceRepository;
+        public TalkService(TalkRepository repository, ConferenceRepository conferenceRepository)
         {
             _repository = repository;
+            _conferenceRepository = conferenceRepository;
         }
         // Get Talks By Conference
         public async Task<List<Talk>> GetTalksByConferenceAsync(int conferenceId)
@@ -75,11 +77,23 @@ namespace TechConfCentral.BLL
         }
         private async Task ValidateTalkAsync(Talk talk, int? excludeTalkId)
         {
+            Conference? conference = await _conferenceRepository.GetConferenceByIdAsync(talk.ConferenceId) ?? throw new ArgumentException("Conference does not exist.");
+
+            DateOnly talkStartDate = DateOnly.FromDateTime(talk.StartDateTime);
+            DateOnly talkEndDate = DateOnly.FromDateTime(talk.EndDateTime);
+
+            // Ensures a talk start and end date are within a conference start and end date
+            if (talkStartDate < conference.StartDate || talkEndDate > conference.EndDate)
+            {
+                throw new ArgumentException("Talk must occur within the conference dates.");
+            }
+
             if (talk.EndDateTime <= talk.StartDateTime)
             {
                 throw new ArgumentException("End date must be after start date.");
             }
 
+            // Checks if a room is available
             bool isRoomBooked = await _repository.IsRoomBookedAsync(
                 talk.RoomId,
                 talk.StartDateTime,
