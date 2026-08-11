@@ -21,6 +21,7 @@ namespace TechConfCentral.Controllers
             _roomService = roomService;
         }
         // View a single conference details
+        [HttpGet]
         public async Task<IActionResult> Index(int conferenceId)
         {
             Conference? currentConf = await _conferenceService.GetConferenceByIdAsync(conferenceId);
@@ -40,6 +41,8 @@ namespace TechConfCentral.Controllers
             };
             return View(vm);
         }
+
+        [HttpGet]
         public async Task<IActionResult> Schedule(int conferenceId, int? day, int? trackId, int? roomId)
         {
             var vm = new ScheduleViewModel
@@ -55,6 +58,7 @@ namespace TechConfCentral.Controllers
             return View(vm);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Speakers(int conferenceId)
         {
             var vm = new SpeakersViewModel

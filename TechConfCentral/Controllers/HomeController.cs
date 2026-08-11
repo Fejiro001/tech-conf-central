@@ -15,7 +15,7 @@ namespace TechConfCentral.Controllers
             _logger = logger;
             _conferenceService = conferenceService;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var vm = new HomeViewModel
