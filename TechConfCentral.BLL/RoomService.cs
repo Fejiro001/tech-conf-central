@@ -52,6 +52,11 @@ namespace TechConfCentral.BLL
         {
             bool nameExists = await _repository.RoomNameExistsAsync(room.Name, room.Id);
 
+            if (room.Capacity < 1)
+            {
+                throw new ArgumentException("A room's capacity must be at least 1.");
+            }
+
             if (nameExists)
             {
                 throw new ArgumentException($"A room with the name '{room.Name}' already exists.");

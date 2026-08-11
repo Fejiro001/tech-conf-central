@@ -6,69 +6,67 @@ using TechConfCentral.Models;
 namespace TechConfCentral.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminTrackController : Controller
+    public class AdminRoomController : Controller
     {
-        private readonly TrackService _trackService;
-        public AdminTrackController(TrackService trackService)
+        private readonly RoomService _roomService;
+
+        public AdminRoomController(RoomService roomService)
         {
-            _trackService = trackService;
+            _roomService = roomService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Track> tracks = await _trackService.GetTracksAsync();
-            return View(tracks);
+            List<Room> rooms = await _roomService.GetRoomsAsync();
+            return View(rooms);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Track track)
+        public async Task<IActionResult> Create(Room room)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(track);
-            }
+            if (!ModelState.IsValid) return View(room);
+
             try
             {
-                await _trackService.AddTrackAsync(track);
+                await _roomService.AddRoomAsync(room);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(track);
+                return View(room);
             }
         }
 
-        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            Track? track = await _trackService.GetTrackByIdAsync(id);
+            Room? room = await _roomService.GetRoomByIdAsync(id);
 
-            if (track == null) return NotFound();
+            if (room == null) return NotFound();
 
-            return View(track);
+            return View(room);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Track updatedTrack)
+        public async Task<IActionResult> Edit(Room updatedRoom)
         {
-            if (!ModelState.IsValid) return View(updatedTrack);
+            if (!ModelState.IsValid) return View(updatedRoom);
 
             try
             {
-                await _trackService.UpdateTrackAsync(updatedTrack);
+                await _roomService.UpdateRoomAsync(updatedRoom);
                 return RedirectToAction("Index");
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                return View(updatedTrack);
+                return View(updatedRoom);
             }
         }
 
@@ -76,7 +74,7 @@ namespace TechConfCentral.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _trackService.DeleteTrackAsync(id);
+            await _roomService.DeleteRoomAsync(id);
             return RedirectToAction("Index");
         }
     }
