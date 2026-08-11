@@ -27,6 +27,11 @@ namespace TechConfCentral.DAL
         {
             return await _context.Conferences
                 .Include(c => c.Talks)
+                .ThenInclude(t => t.Speaker)
+                .Include(c => c.Talks)
+                .ThenInclude(t => t.Track)
+                .Include(c => c.Talks)
+                .ThenInclude(t => t.Room)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
