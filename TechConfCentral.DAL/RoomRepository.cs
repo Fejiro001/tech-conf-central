@@ -17,6 +17,14 @@ namespace TechConfCentral.DAL
                 .AsNoTracking()
                 .ToListAsync();
         }
+        // Get all rooms that have talks by conference
+        public async Task<List<Room>> GetRoomsByConferenceAsync(int conferenceId)
+        {
+            return await _context.Rooms
+                .Where(tr => tr.Talks.Any(t => t.ConferenceId == conferenceId))
+                .AsNoTracking()
+                .ToListAsync();
+        }
         // Get room by id
         public async Task<Room?> GetRoomByIdAsync(int id)
         {

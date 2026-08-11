@@ -11,7 +11,7 @@ namespace TechConfCentral.DAL
             _context = context;
         }
 
-        // Talk Schedule with filtering
+        // Get Talks for Schedule with additional filtering
         public async Task<List<Talk>> GetScheduleAsync(int conferenceId, int? day, int? trackId, int? roomId)
         {
             var query = TalksWithDetails()

@@ -1,4 +1,5 @@
-﻿using TechConfCentral.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.BLL
@@ -14,6 +15,11 @@ namespace TechConfCentral.BLL
         public async Task<List<Room>> GetRoomsAsync()
         {
             return await _repository.GetRoomsAsync();
+        }
+        // Get all rooms that have talks by conference
+        public async Task<List<Room>> GetRoomsByConferenceAsync(int conferenceId)
+        {
+            return await _repository.GetRoomsByConferenceAsync(conferenceId);
         }
         // Get room by id
         public async Task<Room?> GetRoomByIdAsync(int id)
