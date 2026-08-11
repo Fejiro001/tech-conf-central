@@ -57,6 +57,9 @@ namespace TechConfCentral.DAL
                 entity.Property(tr => tr.Name).IsRequired().HasMaxLength(100);
                 entity.Property(tr => tr.Description).HasMaxLength(255);
                 entity.Property(tr => tr.Color).HasMaxLength(7);
+
+                // Unique Constraint: Prevent duplicate saves for same track name
+                entity.HasIndex(t => t.Name).IsUnique();
             });
 
             modelBuilder.Entity<Speaker>(entity =>
@@ -93,6 +96,9 @@ namespace TechConfCentral.DAL
 
                 entity.Property(r => r.Name).IsRequired().HasMaxLength(100);
                 entity.Property(r => r.Capacity).IsRequired();
+
+                // Unique Constraint: Prevent duplicate saves for same room name
+                entity.HasIndex(r => r.Name).IsUnique();
             });
 
             modelBuilder.Entity<SavedTalk>(entity =>
