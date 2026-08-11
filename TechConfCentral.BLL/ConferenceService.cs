@@ -38,6 +38,13 @@ namespace TechConfCentral.BLL
         {
             ValidateConference(conference);
 
+            Conference? existing = await _repository.GetConferenceByIdAsync(conference.Id);
+
+            if (existing == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
             _repository.UpdateConference(conference);
             await _repository.SaveChangesAsync();
         }
