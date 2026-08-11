@@ -54,5 +54,14 @@ namespace TechConfCentral.Controllers
             };
             return View(vm);
         }
+
+        public async Task<IActionResult> Speakers(int conferenceId)
+        {
+            var vm = new SpeakersViewModel
+            {
+                Speakers = await _speakerService.GetSpeakersByConferenceAsync(conferenceId)
+            };
+            return View(vm);
+        }
     }
 }
