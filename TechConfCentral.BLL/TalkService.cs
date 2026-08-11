@@ -33,19 +33,19 @@ namespace TechConfCentral.BLL
             return await _repository.GetTalksByRoomAsync(roomId);
         }
         // Get Featured Talks
-        public async Task<List<Talk>> GetFeaturedTalksAsync()
+        public async Task<List<Talk>> GetFeaturedTalksAsync(int conferenceId)
         {
-            return await _repository.GetFeaturedTalksAsync();
+            return await _repository.GetFeaturedTalksAsync(conferenceId);
         }
         // Get Keynote Talk
-        public async Task<Talk?> GetKeynoteTalkAsync()
+        public async Task<Talk?> GetKeynoteTalkAsync(int conferenceId)
         {
-            return await _repository.GetKeynoteTalkAsync();
+            return await _repository.GetKeynoteTalkAsync(conferenceId);
         }
         // Get Talks for Schedule
-        public async Task<List<Talk>> GetTalksForScheduleAsync()
+        public async Task<List<Talk>> GetTalksForScheduleAsync(int conferenceId)
         {
-            return await _repository.GetTalksForScheduleAsync();
+            return await _repository.GetTalksForScheduleAsync(conferenceId);
         }
         // Get Talk by id
         public async Task<Talk?> GetTalkByIdAsync(int id)

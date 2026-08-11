@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.DAL
@@ -44,25 +43,26 @@ namespace TechConfCentral.DAL
                 .ToListAsync();
         }
         // Get Featured Talks
-        public async Task<List<Talk>> GetFeaturedTalksAsync()
+        public async Task<List<Talk>> GetFeaturedTalksAsync(int conferenceId)
         {
             return await TalksWithDetails()
-                .Where(t => t.IsFeatured)
+                .Where(t => t.ConferenceId == conferenceId && t.IsFeatured)
                 .AsNoTracking()
                 .ToListAsync();
         }
         // Get Keynote Talk
-        public async Task<Talk?> GetKeynoteTalkAsync()
+        public async Task<Talk?> GetKeynoteTalkAsync(int conferenceId)
         {
             return await TalksWithDetails()
-                .Where(t => t.IsKeynote)
+                .Where(t => t.ConferenceId == conferenceId && t.IsKeynote)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
         // Get Talks for Schedule
-        public async Task<List<Talk>> GetTalksForScheduleAsync()
+        public async Task<List<Talk>> GetTalksForScheduleAsync(int conferenceId)
         {
             return await TalksWithDetails()
+                .Where(t => t.ConferenceId == conferenceId)
                 .OrderBy(t => t.StartDateTime)
                 .AsNoTracking()
                 .ToListAsync();
