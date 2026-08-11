@@ -20,6 +20,11 @@ namespace TechConfCentral.BLL
         {
             return await _repository.GetFeaturedSpeakersAsync(conferenceId);
         }
+        // Get all speakers for a conference
+        public async Task<List<Speaker>> GetSpeakersByConferenceAsync(int conferenceId)
+        {
+            return await _repository.GetSpeakersByConferenceAsync(conferenceId);
+        }
         // Get speaker by id
         public async Task<Speaker?> GetSpeakerByIdAsync(int id)
         {
