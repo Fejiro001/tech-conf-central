@@ -7,45 +7,49 @@ namespace TechConfCentral.BLL
     {
         private readonly TalkRepository _repository;
         private readonly ConferenceRepository _conferenceRepository;
-        public TalkService(TalkRepository repository, ConferenceRepository conferenceRepository)
+        private readonly RoomRepository _roomRepository;
+        private readonly SpeakerRepository _speakerRepository;
+        private readonly TrackRepository _trackRepository;
+
+        public TalkService(
+            TalkRepository repository,
+            ConferenceRepository conferenceRepository,
+            RoomRepository roomRepository,
+            SpeakerRepository speakerRepository,
+            TrackRepository trackRepository)
         {
             _repository = repository;
             _conferenceRepository = conferenceRepository;
+            _roomRepository = roomRepository;
+            _speakerRepository = speakerRepository;
+            _trackRepository = trackRepository;
         }
-        // Get Talks By Conference
-        public async Task<List<Talk>> GetTalksByConferenceAsync(int conferenceId)
+        public async Task<List<Talk>> GetScheduleAsync(
+            int conferenceId,
+            int? day = null,
+            int? trackId = null,
+            int? roomId = null)
         {
-            return await _repository.GetTalksByConferenceAsync(conferenceId);
+            return await _repository.GetScheduleAsync(
+                conferenceId,
+                day,
+                trackId,
+                roomId);
         }
-        // Get Talks By Track
-        public async Task<List<Talk>> GetTalksByTrackAsync(int trackId)
-        {
-            return await _repository.GetTalksByTrackAsync(trackId);
-        }
-        // Get Talks Associated with Speaker
-        public async Task<List<Talk>> GetTalksBySpeakerAsync(int speakerId)
-        {
-            return await _repository.GetTalksBySpeakerAsync(speakerId);
-        }
-        // Get Talks by Room
-        public async Task<List<Talk>> GetTalksByRoomAsync(int roomId)
-        {
-            return await _repository.GetTalksByRoomAsync(roomId);
-        }
-        // Get Featured Talks
+        // Get Featured Talks for Homepage
         public async Task<List<Talk>> GetFeaturedTalksAsync(int conferenceId)
         {
             return await _repository.GetFeaturedTalksAsync(conferenceId);
         }
-        // Get Keynote Talk
+        // Get Keynote Talk for Homepage
         public async Task<Talk?> GetKeynoteTalkAsync(int conferenceId)
         {
             return await _repository.GetKeynoteTalkAsync(conferenceId);
         }
-        // Get Talks for Schedule
-        public async Task<List<Talk>> GetTalksForScheduleAsync(int conferenceId)
+        // Get Talks Associated with Speaker for Speaker page
+        public async Task<List<Talk>> GetTalksBySpeakerAsync(int speakerId)
         {
-            return await _repository.GetTalksForScheduleAsync(conferenceId);
+            return await _repository.GetTalksBySpeakerAsync(speakerId);
         }
         // Get Talk by id
         public async Task<Talk?> GetTalkByIdAsync(int id)
@@ -56,7 +60,7 @@ namespace TechConfCentral.BLL
         // Create Talk
         public async Task AddTalkAsync(Talk talk)
         {
-            await ValidateTalkAsync(talk, talk.Id);
+            await ValidateTalkAsync(talk, null);
 
             await _repository.AddTalkAsync(talk);
             await _repository.SaveChangesAsync();
@@ -64,7 +68,7 @@ namespace TechConfCentral.BLL
         // Update Talk
         public async Task UpdateTalkAsync(Talk talk)
         {
-            await ValidateTalkAsync(talk, null);
+            await ValidateTalkAsync(talk, talk.Id);
 
             _repository.UpdateTalk(talk);
             await _repository.SaveChangesAsync();
@@ -79,6 +83,26 @@ namespace TechConfCentral.BLL
         {
             Conference? conference = await _conferenceRepository.GetConferenceByIdAsync(talk.ConferenceId) ?? throw new ArgumentException("Conference does not exist.");
 
+            if (await _roomRepository.GetRoomByIdAsync(talk.RoomId) == null)
+            {
+                throw new ArgumentException("Room does not exist.");
+            }
+
+            if (await _speakerRepository.GetSpeakerByIdAsync(talk.SpeakerId) == null)
+            {
+                throw new ArgumentException("Speaker does not exist.");
+            }
+
+            if (await _trackRepository.GetTrackByIdAsync(talk.TrackId) == null)
+            {
+                throw new ArgumentException("Track does not exist.");
+            }
+
+            if (talk.EndDateTime <= talk.StartDateTime)
+            {
+                throw new ArgumentException("End date must be after start date.");
+            }
+
             DateOnly talkStartDate = DateOnly.FromDateTime(talk.StartDateTime);
             DateOnly talkEndDate = DateOnly.FromDateTime(talk.EndDateTime);
 
@@ -86,11 +110,6 @@ namespace TechConfCentral.BLL
             if (talkStartDate < conference.StartDate || talkEndDate > conference.EndDate)
             {
                 throw new ArgumentException("Talk must occur within the conference dates.");
-            }
-
-            if (talk.EndDateTime <= talk.StartDateTime)
-            {
-                throw new ArgumentException("End date must be after start date.");
             }
 
             // Checks if a room is available

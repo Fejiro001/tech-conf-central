@@ -10,35 +10,37 @@ namespace TechConfCentral.DAL
         {
             _context = context;
         }
-        // Get Talks By Conference
-        public async Task<List<Talk>> GetTalksByConferenceAsync(int conferenceId)
+
+        // Talk Schedule with filtering
+        public async Task<List<Talk>> GetScheduleAsync(int conferenceId, int? day, int? trackId, int? roomId)
         {
-            return await TalksWithDetails()
-                .Where(t => t.ConferenceId == conferenceId)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-        // Get Talks By Track
-        public async Task<List<Talk>> GetTalksByTrackAsync(int trackId)
-        {
-            return await TalksWithDetails()
-                .Where(t => t.TrackId == trackId)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-        // Get Talks Associated with Speaker
-        public async Task<List<Talk>> GetTalksBySpeakerAsync(int speakerId)
-        {
-            return await TalksWithDetails()
-                .Where(t => t.SpeakerId == speakerId)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-        // Get Talks by Room
-        public async Task<List<Talk>> GetTalksByRoomAsync(int roomId)
-        {
-            return await TalksWithDetails()
-                .Where(t => t.RoomId == roomId)
+            var query = TalksWithDetails()
+                .Where(t => t.ConferenceId == conferenceId);
+
+            if (day.HasValue)
+            {
+                DateOnly conferenceStart = await _context.Conferences
+                    .Where(c => c.Id == conferenceId)
+                    .Select(c => c.StartDate)
+                    .FirstAsync();
+
+                DateOnly selectedDate = conferenceStart.AddDays(day.Value - 1);
+
+                query = query.Where(t => DateOnly.FromDateTime(t.StartDateTime) == selectedDate);
+            }
+
+            if (trackId.HasValue)
+            {
+                query = query.Where(t => t.TrackId == trackId);
+            }
+
+            if (roomId.HasValue)
+            {
+                query = query.Where(t => t.RoomId == roomId); ;
+            }
+
+            return await query
+                .OrderBy(t => t.StartDateTime)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -58,12 +60,11 @@ namespace TechConfCentral.DAL
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
-        // Get Talks for Schedule
-        public async Task<List<Talk>> GetTalksForScheduleAsync(int conferenceId)
+        // Get Talks Associated with Speaker
+        public async Task<List<Talk>> GetTalksBySpeakerAsync(int speakerId)
         {
             return await TalksWithDetails()
-                .Where(t => t.ConferenceId == conferenceId)
-                .OrderBy(t => t.StartDateTime)
+                .Where(t => t.SpeakerId == speakerId)
                 .AsNoTracking()
                 .ToListAsync();
         }
