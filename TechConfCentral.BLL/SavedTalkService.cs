@@ -16,21 +16,27 @@ namespace TechConfCentral.BLL
             return await _repository.GetSavedTalksForUserAsync(userId);
         }
         // Save a Talk
-        public async Task SaveTalkAsync(SavedTalk savedtalk)
+        public async Task SaveTalkAsync(string userId, int talkId)
         {
-            bool isTalkSaved = await _repository.IsTalkSavedAsync(savedtalk.UserId, savedtalk.TalkId);
+            bool isTalkSaved = await _repository.IsTalkSavedAsync(userId, talkId);
 
             if (isTalkSaved)
             {
                 throw new InvalidOperationException("The talk has already been saved.");
             }
-            await _repository.SaveTalkAsync(savedtalk);
+            SavedTalk savedTalk = new SavedTalk
+            {
+                UserId = userId,
+                TalkId = talkId
+            };
+
+            await _repository.SaveTalkAsync(savedTalk);
             await _repository.SaveChangesAsync();
         }
         // Delete Saved Talk
-        public async Task RemoveSavedTalkAsync(int id)
+        public async Task RemoveSavedTalkAsync(string userId, int talkId)
         {
-            await _repository.RemoveSavedTalkAsync(id);
+            await _repository.RemoveSavedTalkAsync(userId, talkId);
             await _repository.SaveChangesAsync();
         }
     }

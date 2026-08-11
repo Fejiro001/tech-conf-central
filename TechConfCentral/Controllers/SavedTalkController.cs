@@ -7,7 +7,7 @@ using TechConfCentral.Models;
 namespace TechConfCentral.Controllers
 {
     [Authorize]
-    public class SavedTalkController : Controller
+    public class SavedTalkController : BaseController
     {
         private readonly SavedTalkService _savedTalkService;
         public SavedTalkController(SavedTalkService savedTalkService)
@@ -26,6 +26,24 @@ namespace TechConfCentral.Controllers
                 SavedTalks = await _savedTalkService.GetSavedTalksForUserAsync(userId)
             };
             return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveTalk(int talkId)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null) return Unauthorized();
+
+            await _savedTalkService.SaveTalkAsync(userId, talkId);
+            return RedirectToPreviousPage();
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveTalk(int talkId)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null) return Unauthorized();
+
+            await _savedTalkService.RemoveSavedTalkAsync(userId, talkId);
+            return RedirectToPreviousPage();
         }
     }
 }

@@ -26,9 +26,10 @@ namespace TechConfCentral.DAL
             await _context.SavedTalks.AddAsync(savedtalk);
         }
         // Delete Saved Talk
-        public async Task RemoveSavedTalkAsync(int id)
+        public async Task RemoveSavedTalkAsync(string userId, int talkId)
         {
-            SavedTalk? savedtalk = await _context.SavedTalks.FindAsync(id);
+            SavedTalk? savedtalk = await _context.SavedTalks.FirstOrDefaultAsync(st => st.UserId == userId && st.TalkId == talkId);
+
             if (savedtalk != null)
             {
                 _context.SavedTalks.Remove(savedtalk);
