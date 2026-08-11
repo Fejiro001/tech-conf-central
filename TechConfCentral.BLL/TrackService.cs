@@ -15,6 +15,11 @@ namespace TechConfCentral.BLL
         {
             return await _repository.GetTracksAsync();
         }
+        // Get all tracks that have talks by conference
+        public async Task<List<Track>> GetTracksByConferenceAsync(int conferenceId)
+        {
+            return await _repository.GetTracksByConferenceAsync(conferenceId);
+        }
         // Get track by id
         public async Task<Track?> GetTrackByIdAsync(int id)
         {
