@@ -16,7 +16,7 @@ namespace TechConfCentral.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var conferences = await _conferenceService.GetConferencesAsync();
+            List<Conference> conferences = await _conferenceService.GetConferencesAsync();
             return View(conferences);
         }
 
@@ -29,10 +29,8 @@ namespace TechConfCentral.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Conference conference)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(conference);
-            }
+            if (!ModelState.IsValid) return View(conference);
+            
             try
             {
                 await _conferenceService.AddConferenceAsync(conference);
@@ -48,8 +46,10 @@ namespace TechConfCentral.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var conference = await _conferenceService.GetConferenceByIdAsync(id);
+            Conference? conference = await _conferenceService.GetConferenceByIdAsync(id);
+            
             if (conference == null) return NotFound();
+            
             return View(conference);
         }
         [HttpPost]
@@ -74,25 +74,22 @@ namespace TechConfCentral.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            Conference? conference = await _conferenceService.GetConferenceWithTalksAsync(id);
+
+            if (conference == null) return NotFound();
+
+            return View(conference);
+        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             await _conferenceService.DeleteConferenceAsync(id);
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var conference = await _conferenceService.GetConferenceWithTalksAsync(id);
-
-            if (conference == null)
-            {
-                return NotFound();
-            }
-
-            return View(conference);
         }
     }
 }
