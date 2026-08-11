@@ -18,10 +18,19 @@ namespace TechConfCentral.DAL
                 .ToListAsync();
         }
         // Get all featured speakers
-        public async Task<List<Speaker>> GetFeaturedSpeakersAsync()
+        public async Task<List<Speaker>> GetFeaturedSpeakersAsync(int conferenceId)
         {
             return await _context.Speakers
                 .Where(s => s.IsFeatured)
+                .Where(s => s.Talks.Any(t => t.ConferenceId == conferenceId))
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        // Get all speakers for a conference
+        public async Task<List<Speaker>> GetSpeakersByConferenceAsync(int conferenceId)
+        {
+            return await _context.Speakers
+                .Where(s => s.Talks.Any(t => t.ConferenceId == conferenceId))
                 .AsNoTracking()
                 .ToListAsync();
         }
