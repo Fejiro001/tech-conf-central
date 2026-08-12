@@ -35,6 +35,11 @@ namespace TechConfCentral.DAL
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+        // Get the conference count
+        public async Task<int> GetConferenceCountAsync()
+        {
+            return await _context.Conferences.CountAsync();
+        }
         // Create conference
         public async Task AddConferenceAsync(Conference conference)
         {

@@ -25,6 +25,11 @@ namespace TechConfCentral.BLL
         {
             return await _repository.GetConferenceWithTalksAsync(id);
         }
+        // Get the conference count
+        public async Task<int> GetConferenceCountAsync()
+        {
+            return await _repository.GetConferenceCountAsync();
+        }
         // Create conference
         public async Task AddConferenceAsync(Conference conference)
         {
