@@ -1,3 +1,28 @@
+:root {
+    /* Neutral */
+    --neutral-900: #00151D;
+    --neutral-800: #001A24;
+    --neutral-600: #33444A;
+    --neutral-500: #49616A;
+    --neutral-200: #C2C5C2;
+    --neutral-100: #FCEFE8;
+    /* Green */
+    --green-200: #D1FF66;
+    /* Yellow */
+    --yellow-100: #FFE6BA;
+    /* Red */
+    --red-100: #FEC9C3;
+    --red-300: #FF8080;
+    /* Cyan */
+    --cyan-100: #B5E9FC;
+    /* Purple */
+    --purple-100: #CCC4FD;
+    /* Blue */
+    --blue-100: #BBD8FF;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-sans: "Chakra Petch", sans-serif;
+}
+
 html {
   font-size: 14px;
 }
