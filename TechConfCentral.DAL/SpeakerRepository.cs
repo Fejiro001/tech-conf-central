@@ -48,6 +48,11 @@ namespace TechConfCentral.DAL
                 .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
+        // Get the speaker count
+        public async Task<int> GetTaskCountAsync()
+        {
+            return await _context.Speakers.CountAsync();
+        }
         // Create speaker
         public async Task AddSpeakerAsync(Speaker speaker)
         {

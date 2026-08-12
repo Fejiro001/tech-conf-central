@@ -1,4 +1,5 @@
-﻿using TechConfCentral.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.BLL
@@ -34,6 +35,11 @@ namespace TechConfCentral.BLL
         public async Task<Speaker?> GetSpeakerWithTalksAsync(int id)
         {
             return await _repository.GetSpeakerWithTalksAsync(id);
+        }
+        // Get the speaker count
+        public async Task<int> GetTaskCountAsync()
+        {
+            return await _repository.GetTaskCountAsync();
         }
         // Create speaker
         public async Task AddSpeakerAsync(Speaker speaker)
