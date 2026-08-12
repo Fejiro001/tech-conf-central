@@ -82,7 +82,11 @@ namespace TechConfCentral.DAL
                 .AsNoTracking()
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
-
+        // Get the talk count
+        public async Task<int> GetTalkCountAsync()
+        {
+            return await _context.Talks.CountAsync();
+        }
         // Create Talk
         public async Task AddTalkAsync(Talk talk)
         {

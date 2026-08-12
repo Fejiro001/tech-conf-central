@@ -62,7 +62,11 @@ namespace TechConfCentral.BLL
         {
             return await _repository.GetTalkByIdAsync(id);
         }
-
+        // Get the talk count
+        public async Task<int> GetTalkCountAsync()
+        {
+            return await _repository.GetTalkCountAsync();
+        }
         // Create Talk
         public async Task AddTalkAsync(Talk talk)
         {

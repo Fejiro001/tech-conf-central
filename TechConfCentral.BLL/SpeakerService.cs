@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TechConfCentral.DAL;
+﻿using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.BLL
