@@ -4,8 +4,8 @@
     {
         public List<Conference> Conferences { get; set; } = [];
         public int ConferenceCount { get; set; }
-        public int TrackCount { get; set; }
         public int SpeakerCount { get; set; }
         public int TalkCount { get; set; }
+        public int TrackCount { get; set; }
     }
 }

@@ -29,18 +29,13 @@ namespace TechConfCentral.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Conference> conferences = await _conferenceService.GetConferencesAsync();
-            List<Track> tracks = await _trackService.GetTracksAsync();
-            List<Speaker> speakers = await _speakerService.GetSpeakersAsync();
-            List<Talk> talks = await _talkService.GetTalksAsync();
-
             var vm = new HomeViewModel
             {
-                Conferences = conferences,
-                ConferenceCount = conferences.Count,
-                TrackCount = tracks.Count,
-                SpeakerCount = speakers.Count,
-                TalkCount = talks.Count,
+                Conferences = await _conferenceService.GetConferencesAsync(),
+                ConferenceCount = await _conferenceService.GetConferenceCountAsync(),
+                SpeakerCount = await _speakerService.GetSpeakerCountAsync(),
+                TalkCount = await _talkService.GetTalkCountAsync(),
+                TrackCount = await _trackService.GetTrackCountAsync(),
             };
 
             return View(vm);
