@@ -11,7 +11,7 @@
         <p class="section-label">// CENTRAL_REGISTRY</p>
         <h1 class="hero-title">Discover the Best Tech Conferences_</h1>
         <p class="hero-text">Browse upcoming conferences, explore speakers, build your personal schedule, and never miss the sessions that matter most.</p>
-        <a class="primary-btn" href="#conferences">Browse Conferences <i class="fa-solid fa-arrow-down"></i></a>
+        <a class="btn-primary" href="#conferences">Browse Conferences <i class="fa-solid fa-arrow-down"></i></a>
     </section>
 
     <!-- STATISTICS -->
@@ -73,7 +73,7 @@
                         <a asp-controller="Conference"
                             asp-action="Index"
                             asp-route-id="@conf.Id"
-                            class="primary-btn">
+                            class="btn-primary">
                             View Conference <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </li>
@@ -116,7 +116,7 @@
             <div>
                 <h2>Ready to plan your next conference?</h2>
                 <p>Register today and start saving your favourite talks to your personalized schedule.</p>
-                <a asp-area="Identity" asp-page="/Account/Register" class="primary-btn">Create Account <i class="fa-solid fa-arrow-right"></i></a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn-primary">Create Account <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </section>
     }

@@ -8,26 +8,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <!-- FontAwesome & Base CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css" integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TechConfCentral.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TechConfCentral</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+<body class="site-body">
+    <header class="site-header border-bottom">
+        <nav class="navbar navbar-expand-md py-3">
+            <div class="container">
+                <a class="navbar-brand site-logo" asp-area="" asp-controller="Home" asp-action="Index">TECHCONFCENTRAL_</a>
+                
+                <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars toggler-fa-icon"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                    <ul class="navbar-nav gap-3 mt-3 mt-md-0 me-md-2">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Home" asp-action="Index">CONFERENCES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Schedule">SCHEDULE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Speakers">SPEAKERS</a>
                         </li>
                         <partial name="_LoginPartial" />
                     </ul>
@@ -35,15 +41,60 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container site-main py-4">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="container main-footer">
         <div class="container">
-            &copy; 2026 - TechConfCentral - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="main-footer-grid">
+                <div class="main-footer-col main-footer-brand-col">
+                    <h3 class="main-footer-logo">TECHCONFCENTRAL_</h3>
+                    <p class="main-footer-desc">
+                        A three-day conference for engineers who build the interfaces humans use every day.
+                    </p>
+                </div>
+
+                <!-- Navigate Column -->
+                <div class="main-footer-col">
+                    <h4 class="main-footer-heading">// NAVIGATE</h4>
+                    <ul class="main-footer-links">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Conference" asp-action="Schedule">Schedule</a></li>
+                        <li><a asp-controller="Conference" asp-action="Speakers">Speakers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Tracks Column -->
+                <div class="main-footer-col">
+                    <h4 class="main-footer-heading">// TRACKS</h4>
+                    <ul class="main-footer-links">
+                        <li><span>Frontend</span></li>
+                        <li><span>Performance</span></li>
+                        <li><span>Accessibility</span></li>
+                        <li><span>Tooling</span></li>
+                    </ul>
+                </div>
+
+                <!-- Venue Column -->
+                <div class="main-footer-col">
+                    <h4 class="main-footer-heading">// VENUE</h4>
+                    <address class="main-footer-venue">
+                        Pier 70<br />
+                        San Francisco, CA<br />
+                        Nov 15–17, 2026
+                    </address>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="main-footer-bottom">
+                <span class="main-footer-copy">&copy; 2026 TECHCONFCENTRAL. ALL RIGHTS RESERVED.</span>
+                <a href="#" class="main-footer-back-to-top">BACK TO TOP &uarr;</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
