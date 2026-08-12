@@ -72,6 +72,11 @@ namespace TechConfCentral.BLL
         {
             await ValidateTalkAsync(talk, null);
 
+            if (talk.IsKeynote)
+            {
+                await EnsureSingleKeynoteAsync(talk.ConferenceId, null);
+            }
+
             await _repository.AddTalkAsync(talk);
             await _repository.SaveChangesAsync();
         }
@@ -79,6 +84,11 @@ namespace TechConfCentral.BLL
         public async Task UpdateTalkAsync(Talk talk)
         {
             await ValidateTalkAsync(talk, talk.Id);
+
+            if (talk.IsKeynote)
+            {
+                await EnsureSingleKeynoteAsync(talk.ConferenceId, talk.Id);
+            }
 
             _repository.UpdateTalk(talk);
             await _repository.SaveChangesAsync();
@@ -88,6 +98,15 @@ namespace TechConfCentral.BLL
         {
             await _repository.DeleteTalkAsync(id);
             await _repository.SaveChangesAsync();
+        }
+        private async Task EnsureSingleKeynoteAsync(int conferenceId, int? currentTalkId)
+        {
+            var currentKeynote = await _repository.GetKeynoteTalkAsync(conferenceId);
+
+            if (currentKeynote != null && currentKeynote.Id != currentTalkId)
+            {
+                currentKeynote.IsKeynote = false;
+            }
         }
         private async Task ValidateTalkAsync(Talk talk, int? excludeTalkId)
         {
