@@ -30,6 +30,11 @@ namespace TechConfCentral.DAL
         {
             return await _context.Rooms.FindAsync(id);
         }
+        // Get the room count
+        public async Task<int> GetRoomCountAsync()
+        {
+            return await _context.Rooms.CountAsync();
+        }
         // Create room
         public async Task AddRoomAsync(Room room)
         {

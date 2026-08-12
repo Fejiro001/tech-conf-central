@@ -26,6 +26,11 @@ namespace TechConfCentral.BLL
         {
             return await _repository.GetRoomByIdAsync(id);
         }
+        // Get the room count
+        public async Task<int> GetRoomCountAsync()
+        {
+            return await _repository.GetRoomCountAsync();
+        }
         // Create room
         public async Task AddRoomAsync(Room room)
         {
