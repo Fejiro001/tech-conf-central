@@ -20,7 +20,7 @@ namespace TechConfCentral.Controllers
             List<Room> rooms = await _roomService.GetRoomsAsync();
             return View(rooms);
         }
-
+        [HttpGet]
         public IActionResult Create()
         {
             return View();

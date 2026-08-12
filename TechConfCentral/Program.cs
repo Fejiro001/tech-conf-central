@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TechConfCentral.BLL;
 using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
@@ -7,7 +8,7 @@ namespace TechConfCentral
 {
     public class Program
     {
-        // Changed to `async task` to prevent synchronous blocking of the app
+        // Changed to `async task` to prevent synchronous blocking of the application
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -24,11 +25,27 @@ namespace TechConfCentral
                 .AddRoles<IdentityRole>() // Support for roles
                 .AddEntityFrameworkStores<TechConfCentralContext>();
 
+            // Services
+            builder.Services.AddScoped<ConferenceRepository>();
+            builder.Services.AddScoped<ConferenceService>();
+
+            builder.Services.AddScoped<RoomRepository>();
+            builder.Services.AddScoped<RoomService>();
+
+            builder.Services.AddScoped<TrackRepository>();
+            builder.Services.AddScoped<TrackService>();
+
+            builder.Services.AddScoped<SpeakerRepository>();
+            builder.Services.AddScoped<SpeakerService>();
+
+            builder.Services.AddScoped<TalkRepository>();
+            builder.Services.AddScoped<TalkService>();
+
+            builder.Services.AddScoped<SavedTalkRepository>();
+            builder.Services.AddScoped<SavedTalkService>();
+
             // MVC
             builder.Services.AddControllersWithViews();
-
-            // Developer exception filter
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var app = builder.Build();
 
