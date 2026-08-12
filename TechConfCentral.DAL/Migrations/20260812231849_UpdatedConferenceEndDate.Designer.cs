@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechConfCentral.DAL;
 
@@ -11,9 +12,11 @@ using TechConfCentral.DAL;
 namespace TechConfCentral.DAL.Migrations
 {
     [DbContext(typeof(TechConfCentralContext))]
-    partial class TechConfCentralContextModelSnapshot : ModelSnapshot
+    [Migration("20260812231849_UpdatedConferenceEndDate")]
+    partial class UpdatedConferenceEndDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -520,9 +523,7 @@ namespace TechConfCentral.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConferenceId")
-                        .IsUnique()
-                        .HasFilter("[IsKeynote] = 1");
+                    b.HasIndex("ConferenceId");
 
                     b.HasIndex("RoomId");
 

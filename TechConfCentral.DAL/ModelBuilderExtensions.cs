@@ -18,7 +18,7 @@ namespace TechConfCentral.DAL
                     Tagline = "where code meets the machine_",
                     Description = "The premier developer conference.",
                     StartDate = new DateOnly(2026, 11, 15),
-                    EndDate = new DateOnly(2026, 11, 15),
+                    EndDate = new DateOnly(2026, 11, 17),
                     Venue = "Pier 70",
                     City = "San Francisco",
                     StateOrProvince = "CA",

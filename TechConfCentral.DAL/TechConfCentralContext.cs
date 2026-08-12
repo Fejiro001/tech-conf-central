@@ -88,6 +88,9 @@ namespace TechConfCentral.DAL
 
                 entity.Property(t => t.IsFeatured).IsRequired().HasDefaultValue(false);
                 entity.Property(t => t.IsKeynote).IsRequired().HasDefaultValue(false);
+
+                // Constraint: Only one keynote talk per conference
+                entity.HasIndex(t => t.ConferenceId).IsUnique().HasFilter("[IsKeynote] = 1");
             });
 
             modelBuilder.Entity<Room>(entity =>
