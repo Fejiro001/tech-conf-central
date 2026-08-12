@@ -19,12 +19,37 @@
     --purple-100: #CCC4FD;
     /* Blue */
     --blue-100: #BBD8FF;
+
     --font-mono: "JetBrains Mono", monospace;
     --font-sans: "Chakra Petch", sans-serif;
+
+    --section-spacing: 4.5rem;
+}
+
+/* Made scrollbar slimmer */
+::-webkit-scrollbar {
+    height: 6px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--neutral-500);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neutral-900);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-800);
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -33,15 +58,456 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    background-color: var(--neutral-900);
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.home-container {
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Common Typography */
+.section-label,
+.stats-label,
+.conference-count,
+.conferences-section h2,
+.features-section h2 {
+    font-family: var(--font-sans);
+    color: var(--green-200);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 900;
+}
+
+/* Primary Button */
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--green-200);
+    border: 1px solid var(--green-200);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0 0 var(--green-200);
+}
+
+.primary-btn:hover {
+    background-color: var(--green-200);
+    color: var(--neutral-900);
+    box-shadow: 4px 4px 0 0 var(--neutral-600);
+}
+
+p, span, a {
+    font-family: var(--font-mono);
+}
+
+.site-body {
+    background-color: var(--neutral-900);
+    color: #ffffff;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER & BOOTSTRAP NAVBAR OVERRIDES
+   ========================================================================== */
+/* Header Container */
+.site-header {
+    background-color: var(--neutral-900);
+    border-color: var(--neutral-600) !important;
+}
+
+/* Brand Logo */
+.site-logo {
+    font-family: var(--font-sans);
+    color: var(--green-200) !important;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Nav Button Links */
+.nav-btn,
+.navbar-nav .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    padding: 0.5rem 1.15rem !important;
+    background: transparent;
+    border: 1px solid var(--neutral-100);
+    border-radius: 0;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Active & Hover States */
+.nav-btn:hover,
+.nav-btn.active {
+    border-color: var(--green-200);
+    color: var(--green-200) !important;
+    box-shadow: 2px 2px 0 0 var(--green-200);
+}
+
+.navbar-nav .nav-link:hover {
+    border-color: var(--neutral-100);
+    color: var(--neutral-100) !important;
+    box-shadow: 2px 2px 0 0 var(--neutral-100);
+}
+
+/* Custom Mobile Toggler Icon */
+.custom-toggler {
+    border: 1px solid var(--neutral-100) !important;
+    border-radius: 0 !important;
+    padding: 0.6rem !important;
+    box-shadow: none !important;
+
+    .toggler-fa-icon {
+        color: var(--neutral-100);
+        font-size: 1.25rem;
+    }
+}
+
+.custom-toggler:hover {
+    border: 1px solid var(--green-200) !important;
+
+    .toggler-fa-icon{
+        color: var(--green-200);
+    }
+}
+
+/* Footer Styling */
+.site-footer {
+    border-top: 1px solid var(--neutral-600);
+    background-color: var(--neutral-900);
+    padding: 2rem 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--neutral-200);
+}
+
+.footer-brand {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links a {
+    color: var(--neutral-200);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--green-200);
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .nav-btn,
+    .nav-list .nav-link {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   1. HERO BANNER
+   ========================================================================== */
+.hero-banner {
+    padding: 3rem 0 var(--section-spacing);
+    border-bottom: 1px solid var(--neutral-500);
+}
+
+.hero-title {
+    font-family: var(--font-sans);
+    font-size: clamp(2rem, 5vw, 4.25rem);
+    font-weight: 800;
+    margin: 0.5rem 0 1rem 0;
+    line-height: 1.15;
+    color: var(--neutral-100);
+}
+
+.hero-text {
+    color: var(--neutral-200);
+    font-size: 1.15rem;
+    max-width: 650px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.home-container section:nth-child(even):not(:first-child) {
+    padding: var(--section-spacing) 0 0;
+}
+
+.home-container section:nth-child(odd):not(:first-child) {
+    padding: var(--section-spacing) 0 var(--section-spacing);
+}
+
+/* ==========================================================================
+   2. STATISTICS SECTION
+   ========================================================================== */
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--neutral-600);
+    background-color: var(--neutral-800);
+}
+
+.statistics-item {
+    padding: 1.5rem;
+    text-align: center;
+    border-right: 1px solid var(--neutral-500);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.statistics-item:last-child {
+    border-right: none;
+}
+
+.stats-label {
+    text-wrap: nowrap;
+}
+
+.stats-count {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   3. UPCOMING CONFERENCES
+   ========================================================================== */
+.conferences-header {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.conference-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conference-list li {
+    background-color: var(--neutral-800);
+    border: 1px solid var(--neutral-100);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.2s ease;
+    box-shadow: 2px 2px 0 0 var(--neutral-100);
+}
+
+.conference-list li:hover {
+    border-color: var(--green-200);
+    box-shadow: 2px 2px 0 0 var(--green-200);
+}
+
+.conference-list h3 {
+    font-family: var(--font-sans);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: #ffffff;
+}
+
+.conference-list p {
+    color: var(--neutral-200);
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.conference-list p i {
+    color: var(--green-200);
+    width: 16px;
+}
+
+.conference-list .primary-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.no-conference {
+    border: 1px solid var(--neutral-600);
+    background-color: var(--neutral-800);
+    padding: 3rem;
+    text-align: center;
+    color: var(--neutral-200);
+}
+
+/* ==========================================================================
+   4. WHY USE TECHCONFCENTRAL
+   ========================================================================== */
+.features-section {
+    padding-top: 2rem;
+    border-top: 1px solid var(--neutral-500);
+}
+
+.features-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.features-list li {
+    border: 1px solid var(--neutral-600);
+    background-color: var(--neutral-800);
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.features-list h3 {
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem 0;
+    color: var(--neutral-100);
+    gap: 0.5rem;
+    text-transform: capitalize;
+}
+
+.feature-icon {
+    color: var(--green-200);
+    font-size: 2rem;
+    width: 20px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.features-list p {
+    color: var(--neutral-200);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    text-wrap: pretty;
+}
+
+/* ==========================================================================
+   5. CALL TO ACTION (CTA)
+   ========================================================================== */
+.cta-section div {
+    border: 1px solid var(--neutral-600);
+    background-color: var(--neutral-800);
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 1.75rem;
+    color: var(--neutral-100);
+    font-family: var(--font-sans);
+    margin: 0 0 0.75rem 0;
+}
+
+.cta-section p {
+    color: var(--neutral-200);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto 1.75rem auto;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .statistics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .statistics-item:nth-child(2) {
+        border-right: none;
+    }
+
+    .statistics-item:nth-child(1),
+    .statistics-item:nth-child(2) {
+        border-bottom: 1px solid var(--neutral-500);
+    }
+
+    .conferences-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+
+    .statistics-item {
+        border-right: none;
+        border-bottom: 1px solid var(--neutral-500);
+    }
+
+    .statistics-item:last-child {
+        border-bottom: none;
+    }
 }

@@ -1,9 +1,123 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     Layout = "_HomeLayout";
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "TechConfCentral";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="home-container">
+    <!-- HERO BANNER -->
+    <section class="hero-banner">
+        <p class="section-label">// CENTRAL_REGISTRY</p>
+        <h1 class="hero-title">Discover the Best Tech Conferences_</h1>
+        <p class="hero-text">Browse upcoming conferences, explore speakers, build your personal schedule, and never miss the sessions that matter most.</p>
+        <a class="primary-btn" href="#conferences">Browse Conferences <i class="fa-solid fa-arrow-down"></i></a>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="statistics-section">
+        <ul class="statistics">
+            <li class="statistics-item">
+                <span class="stats-count">@Model.ConferenceCount</span>
+                <span class="stats-label">// CONFERENCES</span>
+            </li>
+            <li class="statistics-item">
+                <span class="stats-count">@Model.SpeakerCount</span>
+                <span class="stats-label">// SPEAKERS</span>
+            </li>
+            <li class="statistics-item">
+                <span class="stats-count">@Model.TalkCount</span>
+                <span class="stats-label">// TALKS</span>
+            </li>
+            <li class="statistics-item">
+                <span class="stats-count">@Model.TrackCount</span>
+                <span class="stats-label">// TRACKS</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- UPCOMING CONFERENCES -->
+    <section id="conferences" class="conferences-section">
+        <div class="conferences-header">
+            <h2>// UPCOMING_CONFERENCES</h2>
+            <span class="conference-count">COUNT: @Model.Conferences.Count</span>
+        </div>
+        
+        @if (!Model.Conferences.Any())
+        {
+            <div class="no-conference">
+                <p>No upcoming conferences scheduled at this time.</p>
+            </div>
+        }
+        else
+        {
+            <ul class="conference-list">
+                @foreach (Conference conf in Model.Conferences)
+                {
+                    <li>
+                        <div>
+                            <h3>@conf.Name</h3>
+                            <p>
+                                <i class="fa-solid fa-map-pin"></i>
+                                @conf.City, @conf.StateOrProvince, @conf.Country
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-calendar-days"></i>
+                                @conf.StartDate.ToString("MMM dd") - @conf.EndDate.ToString("MMM dd, yyyy")
+                            </p>
+                            <p>
+                                <i class="fa-solid fa-microphone"></i>
+                                @(conf.Talks?.Count ?? 0) Talks
+                            </p>
+                        </div>
+                        <a asp-controller="Conference"
+                            asp-action="Index"
+                            asp-route-id="@conf.Id"
+                            class="primary-btn">
+                            View Conference <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </section>
+
+    <!-- WHY USE TECHCONFCENTRAL -->
+    <section class="features-section">
+        <h2>// WHY_USE_TECHCONFCENTRAL</h2>
+        <ul class="features-list">
+            <li>
+                <i class="fa-solid fa-table-list feature-icon"></i>
+                <h3>Browse schedules</h3>
+                <p>Explore full multi-track talk lineups and room schedules.</p>
+            </li>
+            <li>
+                <i class="fa-solid fa-users feature-icon"></i>
+                <h3>Learn about speakers</h3>
+                <p>Discover industry leaders, keynotes, and session bios.</p>
+            </li>
+            <li>
+                <i class="fa-regular fa-bookmark feature-icon"></i>
+                <h3>Save talks for later</h3>
+                <p>Bookmark upcoming sessions to your custom itinerary.</p>
+            </li>
+            <li>
+                <i class="fa-solid fa-star feature-icon"></i>
+                <h3>Never miss keynotes</h3>
+                <p>Stay informed on dates, venues, and main stage presentations.</p>
+            </li>
+        </ul>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    @if (!User.Identity?.IsAuthenticated ?? true)
+    {
+        <section class="cta-section">
+            <div>
+                <h2>Ready to plan your next conference?</h2>
+                <p>Register today and start saving your favourite talks to your personalized schedule.</p>
+                <a asp-area="Identity" asp-page="/Account/Register" class="primary-btn">Create Account <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </section>
+    }
 </div>
