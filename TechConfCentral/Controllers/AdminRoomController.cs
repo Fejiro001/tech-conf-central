@@ -42,7 +42,7 @@ namespace TechConfCentral.Controllers
                 return View(room);
             }
         }
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             Room? room = await _roomService.GetRoomByIdAsync(id);
@@ -51,7 +51,6 @@ namespace TechConfCentral.Controllers
 
             return View(room);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Room updatedRoom)

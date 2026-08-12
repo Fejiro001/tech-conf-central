@@ -24,6 +24,12 @@ namespace TechConfCentral.BLL
             _speakerRepository = speakerRepository;
             _trackRepository = trackRepository;
         }
+        // Get all talks
+        public async Task<List<Talk>> GetTalksAsync()
+        {
+            return await _repository.GetTalksAsync();
+        }
+        // Get Talks for Schedule with additional filtering
         public async Task<List<Talk>> GetScheduleAsync(
             int conferenceId,
             int? day = null,
