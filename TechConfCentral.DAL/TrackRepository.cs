@@ -30,6 +30,11 @@ namespace TechConfCentral.DAL
         {
             return await _context.Tracks.FindAsync(id);
         }
+        // Get the track count
+        public async Task<int> GetTrackCountAsync()
+        {
+            return await _context.Tracks.CountAsync();
+        }
         // Create track
         public async Task AddTrackAsync(Track track)
         {

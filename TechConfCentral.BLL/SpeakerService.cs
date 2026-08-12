@@ -36,9 +36,9 @@ namespace TechConfCentral.BLL
             return await _repository.GetSpeakerWithTalksAsync(id);
         }
         // Get the speaker count
-        public async Task<int> GetTaskCountAsync()
+        public async Task<int> GetSpeakerCountAsync()
         {
-            return await _repository.GetTaskCountAsync();
+            return await _repository.GetSpeakerCountAsync();
         }
         // Create speaker
         public async Task AddSpeakerAsync(Speaker speaker)

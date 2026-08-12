@@ -49,7 +49,7 @@ namespace TechConfCentral.DAL
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
         // Get the speaker count
-        public async Task<int> GetTaskCountAsync()
+        public async Task<int> GetSpeakerCountAsync()
         {
             return await _context.Speakers.CountAsync();
         }

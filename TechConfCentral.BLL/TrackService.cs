@@ -1,4 +1,5 @@
-﻿using TechConfCentral.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
 namespace TechConfCentral.BLL
@@ -24,6 +25,11 @@ namespace TechConfCentral.BLL
         public async Task<Track?> GetTrackByIdAsync(int id)
         {
             return await _repository.GetTrackByIdAsync(id);
+        }
+        // Get the track count
+        public async Task<int> GetTrackCountAsync()
+        {
+            return await _repository.GetTrackCountAsync();
         }
         // Create track
         public async Task AddTrackAsync(Track track)
