@@ -20,7 +20,7 @@
             {
                 var featuredTalk = speaker.Talks?.FirstOrDefault();
 
-                <div class="col d-flex">
+                <div class="col d-flex" onclick="openSpeakerModal(@speaker.Id)">
                     <div class="speaker-card w-100 d-flex flex-column">
 
                         <!-- AVATAR BOX -->

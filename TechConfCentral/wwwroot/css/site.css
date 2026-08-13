@@ -1059,3 +1059,193 @@ p, span, a {
 .speakers-section .row > div:nth-child(4n) .speaker-avatar-box {
     background-color: var(--yellow-100);
 }
+
+/* ==========================================================================
+   DARK TECH TICKET MODAL STYLING
+   ========================================================================== */
+
+.tc-modal-content {
+    background-color: #05131d;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    color: #e2e8f0;
+}
+
+/* Square Boxed Close Button */
+.tc-modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.tc-modal-close-btn:hover {
+    background: #ffffff;
+    color: #05131d;
+}
+
+/* Avatar Frame */
+.tc-modal-avatar {
+    width: 130px;
+    height: 130px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tc-modal-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Header Text */
+.tc-modal-speaker-name {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.tc-modal-speaker-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+}
+
+.tc-modal-divider {
+    border-color: rgba(255, 255, 255, 0.12);
+    margin: 0;
+}
+
+/* Bio Text */
+.tc-modal-bio {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #cbd5e1;
+}
+
+/* Talk Label */
+.tc-talk-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: #a3e635;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+/* Ticket Card */
+.tc-ticket-card {
+    display: flex;
+    background-color: #aae8f9;
+    color: #04121a;
+    overflow: hidden;
+}
+
+/* Ticket Keynote Badge */
+.tc-ticket-badge {
+    background-color: #04121a;
+    color: #aae8f9;
+    padding: 10px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tc-ticket-badge span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* Ticket Body */
+.tc-ticket-body {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tc-ticket-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: #04121a;
+}
+
+.tc-ticket-author {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #04121a;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+}
+
+/* Ticket Stub */
+.tc-ticket-stub {
+    width: 120px;
+    border-left: 2px dashed #04121a;
+    padding: 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.tc-ticket-time .time-main {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.tc-ticket-time .time-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.tc-ticket-barcode {
+    color: #04121a;
+}
+
+/* Star Button inside Stub */
+.tc-ticket-star-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #04121a;
+    color: #ffffff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.tc-ticket-star-btn:hover {
+    transform: scale(1.1);
+}

@@ -1,0 +1,74 @@
+﻿@model SpeakerDetailsViewModel
+
+@if (Model?.Speaker != null)
+{
+    var speaker = Model.Speaker;
+    var talk = speaker.Talks?.FirstOrDefault();
+
+    <div class="tc-speaker-modal-wrapper">
+        <!-- HEADER: AVATAR & META -->
+        <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-4 mb-4">
+            <div class="tc-modal-avatar">
+                <img src="@(string.IsNullOrEmpty(speaker.ProfileImage) ? "/images/default-avatar.png" : speaker.ProfileImage)"
+                     alt="@speaker.FirstName @speaker.LastName" />
+            </div>
+            <div class="tc-modal-speaker-info">
+                <h2 class="tc-modal-speaker-name m-0">@speaker.FirstName.ToLower() @speaker.LastName.ToLower()</h2>
+                <p class="tc-modal-speaker-role m-0 mt-1">
+                    @speaker.JobTitle.ToUpper() @(!string.IsNullOrEmpty(speaker.Company) ? $"@ {speaker.Company.ToUpper()}" : "")
+                </p>
+            </div>
+        </div>
+
+        <hr class="tc-modal-divider" />
+
+        <!-- BIO -->
+        <div class="tc-modal-bio my-4">
+            <p class="m-0">
+                @(string.IsNullOrEmpty(speaker.Biography) ? "No bio available for this speaker." : speaker.Biography)
+            </p>
+        </div>
+
+        <hr class="tc-modal-divider" />
+
+        <!-- TALK TICKET CARD -->
+        @if (talk != null)
+        {
+            <div class="tc-talk-section mt-4">
+                <div class="tc-talk-label mb-3">// TALK</div>
+
+                <div class="tc-ticket-card">
+                    <!-- Vertical Keynote Badge -->
+                    <div class="tc-ticket-badge">
+                        <span>KEYNOTE</span>
+                    </div>
+
+                    <!-- Main Ticket Body -->
+                    <div class="tc-ticket-body">
+                        <h3 class="tc-ticket-title m-0">@talk.Title.ToLower()</h3>
+                        <p class="tc-ticket-author m-0 mt-3">
+                            @speaker.FirstName.ToUpper() @speaker.LastName.ToUpper() // @(string.IsNullOrEmpty(speaker.Company) ? "TECHCONF" : speaker.Company.ToUpper())
+                        </p>
+                    </div>
+
+                    <!-- Ticket Stub -->
+                    <div class="tc-ticket-stub">
+                        <div class="tc-ticket-time text-center">
+                            <span class="time-main d-block">9:00</span>
+                            <span class="time-sub d-block">10:00</span>
+                        </div>
+
+                        <div>
+                            <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
+                        </div>
+
+                        <!-- Bookmark Button -->
+                        <button type="button" class="tc-ticket-star-btn" aria-label="Favorite talk">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

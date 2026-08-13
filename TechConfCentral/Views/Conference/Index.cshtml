@@ -86,7 +86,7 @@
                 {
                     var featuredTalk = speaker.Talks?.FirstOrDefault();
 
-                    <div class="col-6 col-md-3">
+                    <div class="col-6 col-md-3" onclick="openSpeakerModal(@speaker.Id)">
                         <div class="speaker-card h-100">
                             <div class="speaker-avatar-box">
                                 <img src="@speaker.ProfileImage" alt="@speaker.FirstName @speaker.LastName" class="speaker-img" />

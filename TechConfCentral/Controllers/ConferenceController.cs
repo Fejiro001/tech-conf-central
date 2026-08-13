@@ -69,5 +69,11 @@ namespace TechConfCentral.Controllers
             };
             return View(vm);
         }
+
+        [HttpGet]
+        public IActionResult GetSpeakerModalComponent(int speakerId)
+        {
+            return ViewComponent("SpeakerDetails", new { speakerId });
+        }
     }
 }

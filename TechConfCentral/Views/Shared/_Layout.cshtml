@@ -1,6 +1,5 @@
 ﻿@{
-    var conferenceId = Context.Request.RouteValues["conferenceId"]
-                       ?? Context.Request.Query["conferenceId"].ToString();
+    var conferenceId = Context.Session.GetInt32("CurrentConferenceId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +49,22 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+    </div>
+
+    <!-- SPEAKER POPUP MODAL -->
+    <div class="modal fade" id="speakerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content tc-modal-content position-relative">
+                <!-- Boxed Close Button -->
+                <button type="button" class="tc-modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <div class="modal-body p-4 p-md-5" id="speakerModalBody">
+                    <!-- Content loaded dynamically -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="container main-footer">
@@ -104,6 +119,41 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+                    function openSpeakerModal(speakerId) {
+                const modalElement = document.getElementById('speakerModal');
+                const modalBody = document.getElementById('speakerModalBody');
+                const bsModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+                // Set loading spinner state
+                modalBody.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-spinner fa-spin fs-1 text-green"></i>
+                        <p class="mt-3 text-muted font-monospace">Loading speaker profile...</p>
+                    </div>
+                `;
+
+                bsModal.show();
+
+                // Fetch rendered HTML from ViewComponent endpoint
+                fetch(`/Conference/GetSpeakerModalComponent?speakerId=${speakerId}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Failed to load speaker profile.');
+                        return response.text();
+                    })
+                    .then(html => {
+                        modalBody.innerHTML = html;
+                    })
+                    .catch(err => {
+                        modalBody.innerHTML = `
+                            <div class="text-center py-4">
+                                <i class="fa-solid fa-triangle-exclamation fs-1 text-warning mb-2"></i>
+                                <p class="text-muted font-monospace m-0">${err.message}</p>
+                            </div>
+                        `;
+                    });
+            }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
