@@ -14,6 +14,7 @@ namespace TechConfCentral.DAL
         public async Task<List<Room>> GetRoomsAsync()
         {
             return await _context.Rooms
+                .Include(r => r.Talks)
                 .AsNoTracking()
                 .ToListAsync();
         }

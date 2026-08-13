@@ -5,10 +5,10 @@
 }
 
 <div class="mb-4">
-    <a asp-action="Index" class="text-muted text-decoration-none font-monospace small">
+    <a asp-action="Index" class="text-muted text-decoration-none  small">
         <i class="fa-solid fa-arrow-left"></i> BACK TO LIST
     </a>
-    <h1 class="h2 text-white font-monospace mt-2">// EDIT CONFERENCE #@Model.Id</h1>
+    <h1 class="h2 text-white  mt-2">// EDIT CONFERENCE #@Model.Id</h1>
 </div>
 
 <div class="row">
@@ -21,71 +21,71 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Name" class="form-label font-monospace text-light">Conference Name</label>
+                        <label asp-for="Name" class="form-label  text-light">Conference Name</label>
                         <input asp-for="Name" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="Name" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="Name" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Tagline" class="form-label font-monospace text-light">Tagline</label>
+                        <label asp-for="Tagline" class="form-label  text-light">Tagline</label>
                         <input asp-for="Tagline" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="Tagline" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="Tagline" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Venue" class="form-label font-monospace text-light">Venue</label>
+                        <label asp-for="Venue" class="form-label  text-light">Venue</label>
                         <input asp-for="Venue" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="Venue" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="Venue" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="City" class="form-label font-monospace text-light">City</label>
+                        <label asp-for="City" class="form-label  text-light">City</label>
                         <input asp-for="City" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="City" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="City" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="StateOrProvince" class="form-label font-monospace text-light">State / Province</label>
+                        <label asp-for="StateOrProvince" class="form-label  text-light">State / Province</label>
                         <input asp-for="StateOrProvince" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="StateOrProvince" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="StateOrProvince" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Country" class="form-label font-monospace text-light">Country</label>
+                        <label asp-for="Country" class="form-label  text-light">Country</label>
                         <input asp-for="Country" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="Country" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="Country" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="StartDate" class="form-label font-monospace text-light">Start Date</label>
+                        <label asp-for="StartDate" class="form-label  text-light">Start Date</label>
                         <input asp-for="StartDate" type="date" value="@Model.StartDate.ToString("yyyy-MM-dd")" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="StartDate" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="StartDate" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="EndDate" class="form-label font-monospace text-light">End Date</label>
+                        <label asp-for="EndDate" class="form-label  text-light">End Date</label>
                         <input asp-for="EndDate" type="date" value="@Model.EndDate.ToString("yyyy-MM-dd")" class="form-control bg-dark text-white border-secondary" />
-                        <span asp-validation-for="EndDate" class="text-danger font-monospace small"></span>
+                        <span asp-validation-for="EndDate" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Description" class="form-label font-monospace text-light">Description (Optional)</label>
+                    <label asp-for="Description" class="form-label  text-light">Description (Optional)</label>
                     <textarea asp-for="Description" rows="4" class="form-control bg-dark text-white border-secondary"></textarea>
-                    <span asp-validation-for="Description" class="text-danger font-monospace small"></span>
+                    <span asp-validation-for="Description" class="text-danger  small"></span>
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary btn-warning font-monospace px-4">
+                    <button type="submit" class="btn btn-primary btn-warning  px-4">
                         <i class="fa-solid fa-pen me-1"></i> UPDATE CONFERENCE
                     </button>
-                    <a asp-action="Index" class="btn btn-outline-secondary font-monospace">CANCEL</a>
+                    <a asp-action="Index" class="btn btn-outline-secondary ">CANCEL</a>
                 </div>
             </form>
         </div>
