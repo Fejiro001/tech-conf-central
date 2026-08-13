@@ -98,7 +98,6 @@ p, span, a {
     font-family: var(--font-sans);
     color: var(--green-200);
     font-size: 1rem;
-    letter-spacing: 1px;
     text-transform: uppercase;
     margin: 0;
     font-weight: 900;
@@ -412,6 +411,14 @@ p, span, a {
     color: var(--neutral-200);
 }
 
+.main-container section:nth-child(even):not(:first-child) {
+    padding: var(--section-spacing) 0 0;
+}
+
+.main-container section:nth-child(odd):not(:first-child) {
+    padding: var(--section-spacing) 0 0;
+}
+
 /* ==========================================================================
    4. WHY USE TECHCONFCENTRAL
    ========================================================================== */
@@ -674,4 +681,51 @@ p, span, a {
         gap: 1rem;
         align-items: flex-start;
     }
+}
+
+/* ==========================================================================
+   CONFERENCE INDEX PAGE
+   ========================================================================== */
+.ticket-details-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--neutral-600);
+    text-decoration: none;
+}
+
+.ticket-details-link:hover {
+    color: var(--neutral-900);
+}
+
+/* Updated Button Primary Override */
+.btn-keynote {
+    background-color: var(--cyan-100) !important;
+    color: var(--neutral-900) !important;
+    border: 1px solid var(--neutral-900) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px !important;
+    padding: 0.6rem 1.25rem !important;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 2px 2px 0 0 var(--neutral-900);
+}
+
+.btn-keynote:hover {
+    color: var(--neutral-100) !important;
+    background-color: var(--neutral-900) !important;
+    box-shadow: 2px 2px 0px var(--neutral-500);
+}
+
+.keynote-label {
+    color: var(--neutral-900);
+    font-weight: 400;
+    font-family: var(--font-mono);
+}
+
+.conf-btn {
+    box-shadow: 2px 2px 0 0 var(--neutral-100);
+    font-size: 1rem;
 }

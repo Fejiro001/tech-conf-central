@@ -1,0 +1,303 @@
+/* Hero Cards */
+.hero-main-card {
+    background: var(--neutral-100) url('/images/hero.png') no-repeat center / 600px;
+    color: var(--neutral-900);
+    padding: 1.25rem 2rem;
+    border: 1px solid var(--neutral-600);
+    min-height: 380px;
+}
+
+.hero-title {
+    color: var(--neutral-900);
+    font-family: var(--font-sans);
+    font-size: clamp(3rem, 4vw, 4.25rem);
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.hero-footer {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-top: 2px solid var(--neutral-900);
+    padding-top: 1rem;
+    margin-top: 2rem;
+}
+
+/* Keynote Card */
+.keynote-card {
+    background-color: var(--cyan-100);
+    color: var(--neutral-900);
+    border: 1px solid var(--neutral-600);
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+
+.keynote-card .section-tag {
+    color: var(--neutral-900);
+}
+
+.keynote-content {
+    padding: 2rem;
+    z-index: 2;
+    flex: 1;
+}
+
+.keynote-speaker {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    text-transform: lowercase;
+}
+
+.keynote-role {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.keynote-title {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.keynote-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--neutral-600);
+}
+
+.keynote-image-wrapper {
+    width: 45%;
+    background-color: var(--cyan-100);
+    display: flex;
+    align-items: flex-end;
+}
+
+.keynote-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Track Cards */
+.track-card {
+    background-color: var(--neutral-900);
+    border: 1px solid var(--neutral-100);
+    padding: 1.25rem;
+    box-shadow: 2px 2px 0 0 var(--neutral-100);
+}
+
+.track-name {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: lowercase;
+}
+
+.track-desc {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--neutral-200);
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+/* Speaker Grid Cards */
+.speaker-card {
+    background-color: var(--neutral-800);
+    border: 1px solid var(--neutral-600);
+}
+
+.speaker-avatar-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #94E2D5 url('/images/pattern.svg') center/cover no-repeat;
+}
+
+.speaker-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.speaker-info{
+    padding: 1rem;
+}
+
+.speaker-name {
+    color: var(--neutral-100);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-transform: lowercase;
+}
+
+.speaker-title {
+    color: var(--neutral-200);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.speaker-talk-highlight {
+    border-top: 1px solid var(--neutral-600);
+    padding-top: 1rem;
+    color: var(--green-200);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.speakers-section .row > div:nth-child(4n+1) .speaker-avatar-box {
+    background-color: var(--cyan-100);
+}
+
+.speakers-section .row > div:nth-child(4n+2) .speaker-avatar-box {
+    background-color: var(--blue-100);
+}
+
+.speakers-section .row > div:nth-child(4n+3) .speaker-avatar-box {
+    background-color: var(--purple-100);
+}
+
+.speakers-section .row > div:nth-child(4n) .speaker-avatar-box {
+    background-color: var(--yellow-100);
+}
+
+/* SCHEDULE TICKET CARDS */
+.ticket-card {
+    display: flex;
+    border: 1px solid var(--neutral-600);
+    color: var(--neutral-900);
+    min-height: 110px;
+}
+
+/* Vertical Track Strip */
+.ticket-track-strip {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border: 1px solid var(--neutral-900);
+    text-align: center;
+    letter-spacing: 1px;
+    background-color: var(--neutral-800);
+}
+
+/* Main Ticket Body */
+.ticket-main-body {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ticket-title {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-transform: lowercase;
+}
+
+.ticket-speaker {
+    font-family: var(--font-mono);
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+
+    span {
+        color: var(--neutral-600);
+    }
+}
+
+/* Ticket Stub / Barcode Right Side */
+.ticket-stub {
+    width: 140px;
+    border-left: 2px dashed var(--neutral-900);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+}
+
+.ticket-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+    line-height: 1.1;
+}
+
+.ticket-time strong {
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+/* Barcode */
+.ticket-barcode {
+    width: 100%;
+    height: 28px;
+}
+
+.ticket-day-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-main-card {
+        min-height: 200px;
+        background-size: 400px;
+    }
+    .ticket-card {
+        flex-direction: column;
+    }
+
+    .ticket-track-strip {
+        writing-mode: horizontal-tb;
+        transform: none;
+        border-left: none;
+        border-bottom: 1px solid var(--neutral-900);
+    }
+
+    .ticket-stub {
+        width: 100%;
+        border-left: none;
+        border-top: 2px dashed var(--neutral-900);
+        flex-direction: row;
+    }
+
+    .ticket-barcode {
+        width: 80px;
+    }
+}

@@ -1,0 +1,164 @@
+﻿@model ConferenceViewModel
+@{
+    ViewData["Title"] = Model.Conference?.Name ?? "Conference Details";
+}
+
+<div class="main-container">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="row g-4">
+            <!-- Left Hero Box -->
+            <div class="col-lg-7">
+                <div class="hero-main-card d-flex flex-column justify-content-between h-100">
+                    <div class="hero-body">
+                        <h1 class="hero-title">
+                            @Model.Conference?.Tagline
+                        </h1>
+                    </div>
+                    <div class="hero-footer d-flex justify-content-between text-uppercase">
+                        <span>@Model.Conference?.StartDate.ToString("MMM dd") - @Model.Conference?.EndDate.ToString("dd, yyyy")</span>
+                        <span>@Model.Conference?.Venue, @Model.Conference?.City</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Hero Box (Featured Keynote) -->
+            <div class="col-lg-5">
+                @if (Model.FeaturedKeynote != null)
+                {
+                    <div class="keynote-card h-100">
+                        <div class="keynote-content">
+                            <span class="section-label keynote-label">// FEATURED KEYNOTE</span>
+                            <h2 class="keynote-speaker">@Model.FeaturedKeynote.Speaker?.FirstName @Model.FeaturedKeynote.Speaker?.LastName</h2>
+                            <p class="keynote-role">@Model.FeaturedKeynote.Speaker?.JobTitle<br />@@@Model.FeaturedKeynote.Speaker?.Company</p>
+
+                            <h3 class="keynote-title">@Model.FeaturedKeynote.Title</h3>
+                            <p class="keynote-meta">
+                                @Model.FeaturedKeynote.StartDateTime.ToString("MMM dd") / @Model.FeaturedKeynote.StartDateTime.ToString("HH:mm") / @Model.FeaturedKeynote.Room.Name
+                            </p>
+
+                            <a asp-controller="Talk" asp-action="Details" asp-route-id="@Model.FeaturedKeynote.Id" class="btn btn-primary btn-keynote mt-3">
+                                VIEW TALK <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.FeaturedKeynote.Speaker?.ProfileImage))
+                        {
+                            <div class="keynote-image-wrapper">
+                                <img src="@Model.FeaturedKeynote.Speaker.ProfileImage" alt="@Model.FeaturedKeynote.Speaker.FirstName @Model.FeaturedKeynote.Speaker.LastName" class="keynote-img" />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    @{
+        var displayTracks = Model.Tracks?.Where(t => !t.Name.Equals("Keynote", StringComparison.OrdinalIgnoreCase));
+    }
+
+    <!-- TRACKS SECTION -->
+    @if (displayTracks != null && displayTracks.Any())
+    {
+        <section class="tracks-section">
+            <h2 class="section-label mb-4">// TRACKS</h2>
+            <div class="row g-3">
+                @foreach (Track track in displayTracks)
+                {
+                    <div class="col-6 col-md-3">
+                        <div class="track-card h-100">
+                            <h3 class="track-name" style="color:@track.Color;">@track.Name</h3>
+                            <p class="track-desc">@track.Description</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
+    <!-- FEATURED SPEAKERS SECTION -->
+    @if (Model.FeaturedSpeakers != null && Model.FeaturedSpeakers.Any())
+    {
+        <section class="speakers-section">
+            <h2 class="section-label mb-4">// FEATURED_SPEAKERS</h2>
+            <div class="row g-4 pb-4">
+                @foreach (Speaker speaker in Model.FeaturedSpeakers)
+                {
+                    var featuredTalk = speaker.Talks?.FirstOrDefault();
+
+                    <div class="col-6 col-md-3">
+                        <div class="speaker-card h-100">
+                            <div class="speaker-avatar-box">
+                                <img src="@speaker.ProfileImage" alt="@speaker.FirstName @speaker.LastName" class="speaker-img" />
+                            </div>
+                            <div class="speaker-info">
+                                <h3 class="speaker-name">@speaker.FirstName @speaker.LastName</h3>
+                                <p class="speaker-title">@speaker.JobTitle<br />@@@speaker.Company</p>
+                                @if (featuredTalk != null)
+                                {
+                                    <p class="speaker-talk-highlight">@featuredTalk.Title</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-controller="Conference" asp-action="Speakers" asp-route-conferenceId="@Model.Conference?.Id" class="btn nav-btn conf-btn">
+                    VIEW ALL SPEAKERS
+                </a>
+            </div>
+        </section>
+    }
+
+    <!-- SCHEDULE HIGHLIGHTS SECTION -->
+    @if (Model.FeaturedTalks != null && Model.FeaturedTalks.Any())
+    {
+        <section class="schedule-section">
+            <h2 class="section-label mb-4">// SCHEDULE_HIGHLIGHTS</h2>
+            <div class="d-flex flex-column gap-3 pb-4">
+                @foreach (Talk talk in Model.FeaturedTalks)
+                {
+                    int day = (talk.StartDateTime.Date - talk.Conference.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
+
+                    <div class="ticket-card" style="background-color:@talk.Track?.Color;">
+                        <!-- Left Vertical Track Strip -->
+                        <div class="ticket-track-strip" style="color:@talk.Track?.Color;">
+                            <span>@talk.Track?.Name</span>
+                        </div>
+
+                        <!-- Main Ticket Body -->
+                        <div class="ticket-main-body">
+                            <h3 class="ticket-title">@talk.Title</h3>
+                            <p class="ticket-speaker">
+                                @talk.Speaker?.FirstName @talk.Speaker?.LastName // <span>@talk.Speaker?.Company</span>
+                            </p>
+                            <a asp-controller="Talk" asp-action="Details" asp-route-id="@talk.Id" class="ticket-details-link">
+                                <i class="fa-solid fa-plus"></i> TALK DETAILS
+                            </a>
+                        </div>
+
+                        <!-- Right Ticket Stub / Barcode -->
+                        <div class="ticket-stub">
+                            <div class="ticket-time">
+                                <strong>@talk.StartDateTime.ToString("HH:mm")</strong>
+                                <span>@talk.EndDateTime.ToString("HH:mm")</span>
+                            </div>
+                            <div>
+                                <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
+                            </div>
+                            <span class="ticket-day-tag">DAY @day</span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="text-center mt-4">
+                <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" class="btn nav-btn conf-btn">
+                    VIEW FULL SCHEDULE
+                </a>
+            </div>
+        </section>
+    }
+</div>
