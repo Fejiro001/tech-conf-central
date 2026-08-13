@@ -183,27 +183,6 @@
 }
 
 /* SCHEDULE TICKET CARDS */
-.ticket-card {
-    display: flex;
-    border: 1px solid var(--neutral-600);
-    color: var(--neutral-900);
-    min-height: 110px;
-}
-
-/* Vertical Track Strip */
-.ticket-track-strip {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.5rem;
-    border: 1px solid var(--neutral-900);
-    text-align: center;
-    letter-spacing: 1px;
-    background-color: var(--neutral-800);
-}
 
 /* Main Ticket Body */
 .ticket-main-body {
@@ -212,25 +191,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.ticket-title {
-    font-size: clamp(1.5rem, 2vw, 2rem);
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    text-transform: lowercase;
-}
-
-.ticket-speaker {
-    font-family: var(--font-mono);
-    font-size: clamp(0.75rem, 2vw, 1rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-
-    span {
-        color: var(--neutral-600);
-    }
 }
 
 /* Ticket Stub / Barcode Right Side */
@@ -273,31 +233,4 @@
     text-transform: uppercase;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .hero-main-card {
-        min-height: 200px;
-        background-size: 400px;
-    }
-    .ticket-card {
-        flex-direction: column;
-    }
 
-    .ticket-track-strip {
-        writing-mode: horizontal-tb;
-        transform: none;
-        border-left: none;
-        border-bottom: 1px solid var(--neutral-900);
-    }
-
-    .ticket-stub {
-        width: 100%;
-        border-left: none;
-        border-top: 2px dashed var(--neutral-900);
-        flex-direction: row;
-    }
-
-    .ticket-barcode {
-        width: 80px;
-    }
-}

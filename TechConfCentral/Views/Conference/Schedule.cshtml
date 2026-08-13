@@ -1,0 +1,176 @@
+﻿@model ScheduleViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Conference?.Name ?? "Conference"} - Schedule";
+
+    // Calculate total days for the conference filter tabs
+    int totalDays = 1;
+    if (Model.Conference != null)
+    {
+        totalDays = (Model.Conference.EndDate.ToDateTime(TimeOnly.MinValue) - Model.Conference.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
+    }
+}
+
+<div class="main-container">
+    <!-- PAGE HEADER -->
+    <header class="mb-4">
+        <span class="section-label">// PROGRAM SCHEDULE</span>
+        <h1 class="hero-title text-lowercase m-0">@Model.Conference?.Name</h1>
+        <p class="hero-text mb-0">
+            <i class="fa-regular fa-calendar me-2"></i>
+            @Model.Conference?.StartDate.ToString("MMM d, yyyy") – @Model.Conference?.EndDate.ToString("MMM d, yyyy")
+            <span class="ms-3"><i class="fa-solid fa-location-dot me-2"></i>@Model.Conference?.Venue</span>
+        </p>
+    </header>
+
+    <!-- FILTER BAR -->
+    <div class="schedule-filters p-3 p-md-4 mb-5">
+        <form method="get" asp-action="Schedule" class="row g-3 align-items-end">
+            <input type="hidden" name="conferenceId" value="@Model.Conference?.Id" />
+
+            <!-- DAY TABS -->
+            <div class="col-12 col-lg-5">
+                <label class="form-label text-uppercase fw-bold small text-muted" style="font-family: var(--font-mono);">Filter by Day</label>
+                <div class="d-flex gap-2">
+                    <a asp-action="Schedule"
+                       asp-route-conferenceId="@Model.Conference?.Id"
+                       asp-route-trackId="@Model.SelectedTrackId"
+                       asp-route-roomId="@Model.SelectedRoomId"
+                       class="nav-btn flex-fill @(Model.SelectedDay == null ? "active" : "")">
+                        All Days
+                    </a>
+                    @for (int i = 1; i <= totalDays; i++)
+                    {
+                        <a asp-action="Schedule"
+                           asp-route-conferenceId="@Model.Conference?.Id"
+                           asp-route-day="@i"
+                           asp-route-trackId="@Model.SelectedTrackId"
+                           asp-route-roomId="@Model.SelectedRoomId"
+                           class="nav-btn flex-fill @(Model.SelectedDay == i ? "active" : "")">
+                            Day @i
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <!-- TRACK FILTER -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label for="trackId" class="form-label text-uppercase fw-bold small text-muted" style="font-family: var(--font-mono);">Track</label>
+                <select name="trackId" id="trackId" class="form-select custom-select-brutalist" onchange="this.form.submit()">
+                    <option value="">All Tracks</option>
+                    @foreach (var track in Model.Tracks)
+                    {
+                        <option value="@track.Id" selected="@(Model.SelectedTrackId == track.Id)">@track.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- ROOM FILTER -->
+            <div class="col-12 col-sm-6 col-lg-2">
+                <label for="roomId" class="form-label text-uppercase fw-bold small text-muted" style="font-family: var(--font-mono);">Room</label>
+                <select name="roomId" id="roomId" class="form-select custom-select-brutalist" onchange="this.form.submit()">
+                    <option value="">All Rooms</option>
+                    @foreach (var room in Model.Rooms)
+                    {
+                        <option value="@room.Id" selected="@(Model.SelectedRoomId == room.Id)">@room.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- RESET FILTERS -->
+            <div class="col-12 col-lg-2 d-flex">
+                <a asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" class="reset-btn btn-primary w-100 justify-content-center text-nowrap">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- TICKET-STYLE SCHEDULE TALKS -->
+    @if (Model.Talks != null && Model.Talks.Any())
+    {
+        <div class="schedule-ticket-container d-flex flex-column gap-4">
+            @foreach (var talk in Model.Talks)
+            {
+                var trackTextColor = !string.IsNullOrWhiteSpace(talk.Track?.Color) ? talk.Track.Color : "var(--green-200)";
+                var collapseId = $"talkDetails-{talk.Id}";
+
+                <div class="ticket-card d-flex" style="background-color:@trackTextColor;">
+
+                    <div class="ticket-track-strip" style="color:@trackTextColor;">
+                        @talk.Track?.Name
+                    </div>
+
+                    <!-- MAIN TICKET CONTENT -->
+                    <div class="ticket-content p-3 p-md-4 flex-grow-1 d-flex flex-column justify-content-between">
+                        <div>
+                            <h2 class="ticket-title text-lowercase m-0">@talk.Title</h2>
+
+                            @if (talk.Speaker != null)
+                            {
+                                <p class="ticket-speaker text-uppercase mt-2 mb-2" onclick="openSpeakerModal(@talk.Speaker.Id)">
+                                    @talk.Speaker.FirstName @talk.Speaker.LastName
+                                    <span> // @talk.Speaker.Company</span>
+                                </p>
+                            }
+
+                            <div class="collapse mt-3" id="@collapseId">
+                                <div class="ticket-accordion-body">
+                                    @if (!string.IsNullOrEmpty(talk.Description))
+                                    {
+                                        <p class="ticket-talk-description line-clamp-2">
+                                            @talk.Description
+                                        </p>
+                                    }
+
+                                    @if (talk.Room != null)
+                                    {
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <span class="ticket-meta-pill">
+                                                Location: @talk.Room.Name
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <button class="btn-ticket-accordion text-uppercase mt-4"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="false"
+                                    aria-controls="@collapseId">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="btn-text">Talk Details</span>
+                            </button>
+                        </div>                        
+                    </div>
+
+                    <!-- RIGHT TICKET STUB (TIMING & BARCODE) -->
+                    <div class="ticket-stub p-3 p-md-4 d-flex flex-column align-items-center justify-content-between">
+                        <div class="ticket-time-box text-center">
+                            <span class="d-block fw-bold time-main">@talk.StartDateTime.ToString("H:mm")</span>
+                            <span class="small time-sub">@talk.EndDateTime.ToString("H:mm")</span>
+                        </div>
+
+                        <div>
+                            <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
+                        </div>
+
+                        <button type="button" class="btn-ticket-star" title="Bookmark Talk">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-conference">
+            <i class="fa-solid fa-calendar-xmark fs-1 text-green mb-3"></i>
+            <h3 class="text-white">No talks found</h3>
+            <p class="m-0">There are no talks scheduled for the selected filters.</p>
+        </div>
+    }
+</div>

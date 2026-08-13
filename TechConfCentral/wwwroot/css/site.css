@@ -139,6 +139,151 @@ p, span, a {
 }
 
 /* ==========================================================================
+   GLOBAL FORM STYLING
+   ========================================================================== */
+
+/* Form Labels */
+.form-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--neutral-200);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+/* Text Inputs, Passwords, Numbers, Dates, and Textareas */
+.form-control {
+    background-color: var(--neutral-900) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--neutral-500) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.65rem 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control::placeholder {
+    color: var(--neutral-500);
+    opacity: 1;
+}
+
+.form-control:focus {
+    background-color: var(--neutral-900) !important;
+    border-color: var(--green-200) !important;
+    color: #ffffff !important;
+    box-shadow: 2px 2px 0 0 var(--green-200) !important;
+    outline: none;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: var(--neutral-800) !important;
+    border-color: var(--neutral-600) !important;
+    color: var(--neutral-500) !important;
+    cursor: not-allowed;
+}
+
+/* Custom Select Dropdowns */
+.form-select {
+    background-color: var(--neutral-900) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--neutral-500) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.65rem 2.25rem 0.65rem 1rem;
+    /* Custom Neon Green SVG Dropdown Arrow */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23D1FF66' stroke-linecap='square' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.75rem center !important;
+    background-size: 14px 12px !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    background-color: var(--neutral-900) !important;
+    border-color: var(--green-200) !important;
+    color: #ffffff !important;
+    box-shadow: 2px 2px 0 0 var(--green-200) !important;
+    outline: none;
+}
+
+.form-select option {
+    background-color: var(--neutral-800);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    padding: 0.5rem;
+}
+
+/* Checkboxes and Radio Buttons */
+.form-check-input {
+    background-color: var(--neutral-900) !important;
+    border: 1px solid var(--neutral-500) !important;
+    border-radius: 0 !important;
+    width: 1.15em;
+    height: 1.15em;
+    margin-top: 0.15em;
+    cursor: pointer;
+}
+
+.form-check-input[type="radio"] {
+    border-radius: 0 !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--green-200) !important;
+    border-color: var(--green-200) !important;
+    /* Dark checkmark icon */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%2300151D' stroke-linecap='square' stroke-width='3' d='M4 10l4 4L16 6'/%3e%3c/svg%3e") !important;
+}
+
+.form-check-input:focus {
+    box-shadow: 2px 2px 0 0 var(--green-200) !important;
+    border-color: var(--green-200) !important;
+    outline: none;
+}
+
+.form-check-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--neutral-100);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Input Groups (Prepend / Append Icons & Text) */
+.input-group-text {
+    background-color: var(--neutral-800) !important;
+    color: var(--green-200) !important;
+    border: 1px solid var(--neutral-500) !important;
+    border-radius: 0 !important;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+/* Validation Errors (ASP.NET Core & Bootstrap Support) */
+.is-invalid,
+.input-validation-error {
+    border-color: var(--red-300) !important;
+    box-shadow: 2px 2px 0 0 var(--red-300) !important;
+}
+
+.invalid-feedback,
+.field-validation-error {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--red-300);
+    margin-top: 0.35rem;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
    HEADER & BOOTSTRAP NAVBAR OVERRIDES
    ========================================================================== */
 /* Header Container */
@@ -686,6 +831,29 @@ p, span, a {
 /* ==========================================================================
    CONFERENCE INDEX PAGE
    ========================================================================== */
+.ticket-card {
+    display: flex;
+    border: 1px solid var(--neutral-600);
+    color: var(--neutral-900);
+    min-height: 110px;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Vertical Track Strip */
+.ticket-track-strip {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border: 1px solid var(--neutral-900);
+    text-align: center;
+    letter-spacing: 1px;
+    background-color: var(--neutral-800);
+}
+
 .ticket-details-link {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -696,6 +864,66 @@ p, span, a {
 
 .ticket-details-link:hover {
     color: var(--neutral-900);
+}
+
+.ticket-title {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-transform: lowercase;
+}
+
+.ticket-speaker {
+    font-family: var(--font-mono);
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+
+    span {
+        color: var(--neutral-600);
+    }
+}
+
+/* Talk Details toggle */
+.btn-ticket-accordion {
+    background-color: transparent;
+    border: none;
+    padding: 0 !important;
+    width: fit-content;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.ticket-accordion-body .ticket-talk-description {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--neutral-200);
+}
+
+.ticket-talk-description {
+    border-top: 1px solid rgb(51, 68, 74, 0.1);
+    padding-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--neutral-900) !important;
+    line-height: 1.5;
+}
+
+.ticket-meta-pill {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--neutral-900);
+    border: 1px solid var(--neutral-900);
+    padding: 0.2rem 0.5rem;
 }
 
 /* Updated Button Primary Override */
@@ -728,4 +956,34 @@ p, span, a {
 .conf-btn {
     box-shadow: 2px 2px 0 0 var(--neutral-100);
     font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-main-card {
+        min-height: 200px;
+        background-size: 400px;
+    }
+
+    .ticket-card {
+        flex-direction: column;
+    }
+
+    .ticket-track-strip {
+        writing-mode: horizontal-tb;
+        transform: none;
+        border-left: none;
+        border-bottom: 1px solid var(--neutral-900);
+    }
+
+    .ticket-stub {
+        width: 100%;
+        border-left: none;
+        border-top: 2px dashed var(--neutral-900);
+        flex-direction: row;
+    }
+
+    .ticket-barcode {
+        width: 80px;
+    }
 }

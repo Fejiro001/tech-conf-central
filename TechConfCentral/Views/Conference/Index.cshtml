@@ -105,7 +105,7 @@
             </div>
 
             <div class="text-center mt-4">
-                <a asp-controller="Conference" asp-action="Speakers" asp-route-conferenceId="@Model.Conference?.Id" class="btn nav-btn conf-btn">
+                <a asp-controller="Conference" asp-action="Speaker" asp-route-conferenceId="@Model.Conference?.Id" class="btn nav-btn conf-btn">
                     VIEW ALL SPEAKERS
                 </a>
             </div>
@@ -121,6 +121,8 @@
                 @foreach (Talk talk in Model.FeaturedTalks)
                 {
                     int day = (talk.StartDateTime.Date - talk.Conference.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
+                    var collapseId = $"talkDetails-{talk.Id}";
+
 
                     <div class="ticket-card" style="background-color:@talk.Track?.Color;">
                         <!-- Left Vertical Track Strip -->
@@ -134,9 +136,36 @@
                             <p class="ticket-speaker">
                                 @talk.Speaker?.FirstName @talk.Speaker?.LastName // <span>@talk.Speaker?.Company</span>
                             </p>
-                            <a asp-controller="Talk" asp-action="Details" asp-route-id="@talk.Id" class="ticket-details-link">
-                                <i class="fa-solid fa-plus"></i> TALK DETAILS
-                            </a>
+
+                            <div class="collapse mt-3" id="@collapseId">
+                                <div class="ticket-accordion-body">
+                                    @if (!string.IsNullOrEmpty(talk.Description))
+                                    {
+                                        <p class="ticket-talk-description line-clamp-2">
+                                            @talk.Description
+                                        </p>
+                                    }
+
+                                    @if (talk.Room != null)
+                                    {
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <span class="ticket-meta-pill">
+                                                Location: @talk.Room.Name
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <button class="btn-ticket-accordion text-uppercase mt-4"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="false"
+                                    aria-controls="@collapseId">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="btn-text">Talk Details</span>
+                            </button>
                         </div>
 
                         <!-- Right Ticket Stub / Barcode -->
