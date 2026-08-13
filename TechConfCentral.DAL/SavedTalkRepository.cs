@@ -17,6 +17,11 @@ namespace TechConfCentral.DAL
             return await _context.SavedTalks
                 .Where(st => st.UserId == userId)
                 .Include(st => st.Talk)
+                .ThenInclude(t => t.Track)
+                .Include(st => st.Talk)
+                .ThenInclude(t => t.Room)
+                .Include(st => st.Talk)
+                .ThenInclude(t => t.Conference)
                 .AsNoTracking()
                 .ToListAsync();
         }
