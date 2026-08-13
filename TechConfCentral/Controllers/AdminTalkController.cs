@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using TechConfCentral.BLL;
 using TechConfCentral.Models;
 
@@ -46,8 +47,7 @@ namespace TechConfCentral.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await PopulateDropdowns(vm);
-                return View(vm);
+                return BadRequest(ModelState);
             }
 
             try

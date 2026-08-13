@@ -14,7 +14,6 @@ namespace TechConfCentral.DAL
         public async Task<List<Talk>> GetTalksAsync()
         {
             return await TalksWithDetails()
-                .OrderBy(t => t.StartDateTime)
                 .AsNoTracking()
                 .ToListAsync();
         }
