@@ -43,12 +43,18 @@ namespace TechConfCentral.BLL
         // Create speaker
         public async Task AddSpeakerAsync(Speaker speaker)
         {
+            string seed = Uri.EscapeDataString($"{speaker.FirstName}{speaker.LastName}");
+            speaker.ProfileImage = $"https://api.dicebear.com/10.x/notionists/svg?seed={seed}";
+
             await _repository.AddSpeakerAsync(speaker);
             await _repository.SaveChangesAsync();
         }
         // Update speaker
         public async Task UpdateSpeakerAsync(Speaker speaker)
         {
+            string seed = Uri.EscapeDataString($"{speaker.FirstName}{speaker.LastName}");
+            speaker.ProfileImage = $"https://api.dicebear.com/10.x/notionists/svg?seed={seed}";
+
             _repository.UpdateSpeaker(speaker);
             await _repository.SaveChangesAsync();
         }
