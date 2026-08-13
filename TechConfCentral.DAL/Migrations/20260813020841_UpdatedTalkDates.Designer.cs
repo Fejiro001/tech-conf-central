@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechConfCentral.DAL;
 
@@ -11,9 +12,11 @@ using TechConfCentral.DAL;
 namespace TechConfCentral.DAL.Migrations
 {
     [DbContext(typeof(TechConfCentralContext))]
-    partial class TechConfCentralContextModelSnapshot : ModelSnapshot
+    [Migration("20260813020841_UpdatedTalkDates")]
+    partial class UpdatedTalkDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

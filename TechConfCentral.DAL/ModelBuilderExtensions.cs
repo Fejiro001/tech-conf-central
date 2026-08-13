@@ -175,8 +175,8 @@ namespace TechConfCentral.DAL
                     SpeakerId = 3, // James Okonkwo
                     Title = "Monorepos at Scale: Lessons from 500 Packages",
                     Description = "Cartwell's frontend monorepo contains over 500 packages, dozens of apps, and is contributed to by 300+ engineers daily. James shares the hard-won lessons from building and maintaining this system — from dependency management and build caching to code ownership and migration strategies.",
-                    StartDateTime = new DateTime(2026, 11, 15, 12, 0, 0),
-                    EndDateTime = new DateTime(2026, 11, 15, 13, 0, 0),
+                    StartDateTime = new DateTime(2026, 11, 16, 12, 0, 0),
+                    EndDateTime = new DateTime(2026, 11, 16, 13, 0, 0),
                     IsFeatured = false,
                     IsKeynote = false
                 },
@@ -189,8 +189,8 @@ namespace TechConfCentral.DAL
                     SpeakerId = 4, // Mei-Lin Zhang
                     Title = "CSS Container Queries in Production",
                     Description = "Container queries have shipped in every major browser, but adoption in production remains low. Mei-Lin shares Roamly's journey of replacing hundreds of JavaScript-based responsive components with pure CSS container queries.",
-                    StartDateTime = new DateTime(2026, 11, 15, 13, 0, 0),
-                    EndDateTime = new DateTime(2026, 11, 15, 14, 0, 0),
+                    StartDateTime = new DateTime(2026, 11, 17, 13, 0, 0),
+                    EndDateTime = new DateTime(2026, 11, 17, 14, 0, 0),
                     IsFeatured = true,
                     IsKeynote = false
                 },
@@ -203,8 +203,8 @@ namespace TechConfCentral.DAL
                     SpeakerId = 5, // Priya Sharma
                     Title = "ARIA Patterns You're Probably Using Wrong",
                     Description = "Well-intentioned ARIA usage often makes interfaces less accessible, not more. Priya walks through the most commonly misused ARIA roles and properties — live regions that fire too often, menu roles on navigation, dialog traps that trap too much — and shows how to audit and fix them.",
-                    StartDateTime = new DateTime(2026, 11, 15, 15, 0, 0),
-                    EndDateTime = new DateTime(2026, 11, 15, 16, 0, 0),
+                    StartDateTime = new DateTime(2026, 11, 18, 15, 0, 0),
+                    EndDateTime = new DateTime(2026, 11, 18, 16, 0, 0),
                     IsFeatured = false,
                     IsKeynote = false
                 }
