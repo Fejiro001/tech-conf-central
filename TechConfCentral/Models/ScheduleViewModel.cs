@@ -10,5 +10,7 @@
         public int? SelectedTrackId { get; set; }
         public int? SelectedRoomId { get; set; }
         public int? SelectedDay { get; set; } = 1;
+        // Stores IDs of talks saved by the current user
+        public HashSet<int> SavedTalkIds { get; set; } = [];
     }
 }

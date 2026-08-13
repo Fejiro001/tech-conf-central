@@ -65,6 +65,7 @@
 
                 var trackTextColor = !string.IsNullOrWhiteSpace(talk.Track?.Color) ? talk.Track.Color : "var(--green-200)";
                 var collapseId = $"savedTalkDetails-{talk.Id}";
+                bool isSaved = savedItem != null;
 
                 <div class="ticket-card d-flex" style="background-color:@trackTextColor;">
 
@@ -141,14 +142,27 @@
                             <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
                         </div>
 
-                        <!-- REMOVE FROM SCHEDULE FORM -->
-                        <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="talkId" value="@talk.Id" />
-                            <button type="submit" class="btn-ticket-remove" title="Remove from Schedule">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        </form>
+                        <!-- TOGGLE SAVE / REMOVE TALK -->
+                        @if (isSaved)
+                        {
+                            <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="talkId" value="@talk.Id" />
+                                <button type="submit" class="btn-ticket-star active" title="Remove from Schedule">
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="SavedTalk" asp-action="SaveTalk" method="post" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="talkId" value="@talk.Id" />
+                                <button type="submit" class="btn-ticket-star" title="Save to Schedule">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             }

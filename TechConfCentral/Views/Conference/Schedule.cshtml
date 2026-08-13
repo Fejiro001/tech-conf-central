@@ -157,9 +157,27 @@
                             <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
                         </div>
 
-                        <button type="button" class="btn-ticket-star" title="Bookmark Talk">
-                            <i class="fa-regular fa-star"></i>
-                        </button>
+                        <!-- TOGGLE SAVE / REMOVE TALK -->
+                        @if (Model.SavedTalkIds.Contains(talk.Id))
+                        {
+                            <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="talkId" value="@talk.Id" />
+                                <button type="submit" class="btn-ticket-star active" title="Remove from Schedule">
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="SavedTalk" asp-action="SaveTalk" method="post" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="talkId" value="@talk.Id" />
+                                <button type="submit" class="btn-ticket-star" title="Save to Schedule">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             }

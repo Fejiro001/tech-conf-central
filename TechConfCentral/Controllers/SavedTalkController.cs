@@ -19,7 +19,7 @@ namespace TechConfCentral.Controllers
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            if (userId == null) return Unauthorized();
+            if (userId == null) return Challenge(); // Redirects to Login
 
             var vm = new SavedTalksViewModel
             {
@@ -32,7 +32,7 @@ namespace TechConfCentral.Controllers
         public async Task<IActionResult> SaveTalk(int talkId)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return Unauthorized();
+            if (userId == null) return Challenge(); // Redirects to Login
 
             try
             {
@@ -50,7 +50,7 @@ namespace TechConfCentral.Controllers
         public async Task<IActionResult> RemoveTalk(int talkId)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return Unauthorized();
+            if (userId == null) return Challenge(); // Redirects to Login
 
             await _savedTalkService.RemoveSavedTalkAsync(userId, talkId);
             return RedirectToPreviousPage();

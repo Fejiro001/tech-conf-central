@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TechConfCentral.BLL;
 using TechConfCentral.Models;
 
@@ -11,14 +12,16 @@ namespace TechConfCentral.Controllers
         private readonly TalkService _talkService;
         private readonly TrackService _trackService;
         private readonly RoomService _roomService;
+        private readonly SavedTalkService _savedTalkService;
 
-        public ConferenceController(ConferenceService conferenceService, SpeakerService speakerService, TalkService talkService, TrackService trackService, RoomService roomService)
+        public ConferenceController(ConferenceService conferenceService, SpeakerService speakerService, TalkService talkService, TrackService trackService, RoomService roomService, SavedTalkService savedTalkService)
         {
             _conferenceService = conferenceService;
             _speakerService = speakerService;
             _talkService = talkService;
             _trackService = trackService;
             _roomService = roomService;
+            _savedTalkService = savedTalkService;
         }
         // View a single conference details
         [HttpGet]
@@ -47,6 +50,14 @@ namespace TechConfCentral.Controllers
         [HttpGet]
         public async Task<IActionResult> Schedule(int conferenceId, int? day, int? trackId, int? roomId)
         {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            HashSet<int> savedTalkIds = new();
+
+            if (userId != null)
+            {
+                var savedTalks = await _savedTalkService.GetSavedTalksForUserAsync(userId);
+                savedTalkIds = savedTalks.Select(st => st.TalkId).ToHashSet();
+            }
             var vm = new ScheduleViewModel
             {
                 Conference = await _conferenceService.GetConferenceByIdAsync(conferenceId),
@@ -55,7 +66,8 @@ namespace TechConfCentral.Controllers
                 Rooms = await _roomService.GetRoomsByConferenceAsync(conferenceId),
                 SelectedTrackId = trackId,
                 SelectedRoomId = roomId,
-                SelectedDay = day
+                SelectedDay = day,
+                SavedTalkIds = savedTalkIds
             };
             return View(vm);
         }
