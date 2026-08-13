@@ -1,0 +1,72 @@
+﻿@model SpeakersViewModel
+
+@{
+    ViewData["Title"] = "Conference - Speakers";
+}
+
+<div class="main-container speakers-section">
+    <!-- PAGE HEADER -->
+    <div class="mb-4">
+        <h1 class="section-label">
+            // speakers
+        </h1>
+    </div>
+
+    <!-- SPEAKERS GRID -->
+    @if (Model.Speakers != null && Model.Speakers.Any())
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var speaker in Model.Speakers)
+            {
+                var featuredTalk = speaker.Talks?.FirstOrDefault();
+
+                <div class="col d-flex">
+                    <div class="speaker-card w-100 d-flex flex-column">
+
+                        <!-- AVATAR BOX -->
+                        <div class="speaker-avatar-box mb-0">
+                            @if (!string.IsNullOrEmpty(speaker.ProfileImage))
+                            {
+                                <img src="@speaker.ProfileImage" alt="@speaker.FirstName @speaker.LastName" class="speaker-img" />
+                            }
+                            else
+                            {
+                                <!-- Fallback image if no avatar is provided -->
+                                <img src="https://api.dicebear.com/10.x/notionists/svg?seed=Unknown" alt="@speaker.FirstName" class="speaker-img" />
+                            }
+                        </div>
+
+                        <!-- SPEAKER INFO -->
+                        <div class="speaker-info d-flex flex-column flex-grow-1">
+                            <h2 class="speaker-name">@speaker.FirstName @speaker.LastName</h2>
+
+                            <p class="speaker-title" style="font-family: var(--font-mono);">
+                                @speaker.JobTitle
+                                @if (!string.IsNullOrEmpty(speaker.Company))
+                                {
+                                    <span>@@@speaker.Company</span>
+                                }
+                            </p>
+
+                            <!-- Pushes the talk highlight to the bottom of the card so they align evenly -->
+                            <div class="mt-auto">
+                                <p class="speaker-talk-highlight" style="font-family: var(--font-mono);">
+                                    @featuredTalk.Title
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-speakers p-5 text-center" style="background-color: var(--neutral-800); border: 1px solid var(--neutral-600);">
+            <i class="fa-solid fa-microphone-lines-slash fs-1 text-green mb-3"></i>
+            <h3 class="text-white">No speakers announced yet</h3>
+            <p class="text-muted m-0" style="font-family: var(--font-mono);">Check back soon for updates to the lineup.</p>
+        </div>
+    }
+</div>

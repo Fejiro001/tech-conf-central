@@ -256,7 +256,7 @@ p, span, a {
     user-select: none;
 }
 
-/* Input Groups (Prepend / Append Icons & Text) */
+/* Input Groups  */
 .input-group-text {
     background-color: var(--neutral-800) !important;
     color: var(--green-200) !important;
@@ -266,14 +266,13 @@ p, span, a {
     font-size: 0.85rem;
 }
 
-/* Validation Errors (ASP.NET Core & Bootstrap Support) */
+/* Validation Errors */
 .is-invalid,
 .input-validation-error {
     border-color: var(--red-300) !important;
     box-shadow: 2px 2px 0 0 var(--red-300) !important;
 }
 
-.invalid-feedback,
 .field-validation-error {
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -986,4 +985,76 @@ p, span, a {
     .ticket-barcode {
         width: 80px;
     }
+}
+
+/* Speaker Grid Cards */
+.speaker-card {
+    background-color: var(--neutral-800);
+    border: 1px solid var(--neutral-600);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.speaker-card:hover {
+    box-shadow: 2px 2px 0 0 var(--neutral-100);
+    border-color: var(--neutral-100);
+}
+
+.speaker-avatar-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #94E2D5 url('/images/pattern.svg') center/cover no-repeat;
+}
+
+.speaker-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.speaker-info {
+    padding: 1rem;
+}
+
+.speaker-name {
+    color: var(--neutral-100);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-transform: lowercase;
+}
+
+.speaker-title {
+    color: var(--neutral-200);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.speaker-talk-highlight {
+    border-top: 1px solid var(--neutral-600);
+    padding-top: 1rem;
+    color: var(--green-200);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.speakers-section .row > div:nth-child(4n+1) .speaker-avatar-box {
+    background-color: var(--cyan-100);
+}
+
+.speakers-section .row > div:nth-child(4n+2) .speaker-avatar-box {
+    background-color: var(--blue-100);
+}
+
+.speakers-section .row > div:nth-child(4n+3) .speaker-avatar-box {
+    background-color: var(--purple-100);
+}
+
+.speakers-section .row > div:nth-child(4n) .speaker-avatar-box {
+    background-color: var(--yellow-100);
 }

@@ -32,7 +32,7 @@ namespace TechConfCentral.DAL
         {
             return await _context.Speakers
                 .Where(s => s.Talks.Any(t => t.ConferenceId == conferenceId))
-                .Include(s => s.Talks.Where(t => t.SpeakerId == s.Id))
+                .Include(s => s.Talks.Where(t => t.ConferenceId == conferenceId))
                 .AsNoTracking()
                 .ToListAsync();
         }
