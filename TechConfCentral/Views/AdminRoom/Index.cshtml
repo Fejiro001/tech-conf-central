@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TechConfCentral.Models.Room>
+
+@{
+    ViewData["Title"] = "Admin - Rooms";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <span class="section-label d-block text-muted font-monospace small">// MANAGEMENT</span>
+        <h1 class="h2 text-white font-monospace m-0">ROOMS_</h1>
+    </div>
+    <a asp-action="Create" class="btn btn-outline-success font-monospace">
+        <i class="fa-solid fa-plus me-1"></i> CREATE NEW
+    </a>
+</div>
+
+<div class="card bg-dark border-secondary">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle m-0">
+                <thead>
+                    <tr class="border-bottom border-secondary font-monospace text-muted small">
+                        <th class="ps-4">#</th>
+                        <th>ROOM NAME</th>
+                        <th>CAPACITY</th>
+                        <th>SCHEDULED TALKS</th>
+                        <th class="text-end pe-4">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted font-monospace">
+                                No rooms configured. Click "Create New" to add one.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var room in Model)
+                        {
+                            <tr>
+                                <td class="ps-4 font-monospace text-muted">@room.Id</td>
+                                <td>
+                                    <strong class="text-white d-block font-monospace">@room.Name</strong>
+                                </td>
+                                <td class="font-monospace text-light">
+                                    <span class="badge bg-secondary text-dark border border-secondary font-monospace">
+                                        <i class="fa-solid fa-users me-1"></i>@room.Capacity seats
+                                    </span>
+                                </td>
+                                <td class="font-monospace text-muted small">
+                                    @(room.Talks?.Count ?? 0) talk(s)
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-outline-warning" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <form asp-action="Delete" asp-route-id="@room.Id" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete @room.Name?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

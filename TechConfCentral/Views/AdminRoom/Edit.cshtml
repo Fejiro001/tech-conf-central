@@ -1,0 +1,47 @@
+﻿@model TechConfCentral.Models.Room
+
+@{
+    ViewData["Title"] = "Edit Room";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-muted text-decoration-none font-monospace small">
+        &larr; BACK TO LIST
+    </a>
+    <h1 class="h2 text-white font-monospace mt-2">// EDIT ROOM #@Model.Id</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card bg-dark border-secondary p-4">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger font-monospace mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label font-monospace text-light">Room Name / Code</label>
+                    <input asp-for="Name" class="form-control bg-dark text-white border-secondary" />
+                    <span asp-validation-for="Name" class="text-danger font-monospace small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Capacity" class="form-label font-monospace text-light">Seating Capacity</label>
+                    <input asp-for="Capacity" type="number" min="1" class="form-control bg-dark text-white border-secondary" />
+                    <span asp-validation-for="Capacity" class="text-danger font-monospace small"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning font-monospace px-4">
+                        <i class="fa-solid fa-pen me-1"></i> UPDATE ROOM
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary font-monospace">CANCEL</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
