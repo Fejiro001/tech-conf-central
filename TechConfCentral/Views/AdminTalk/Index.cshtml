@@ -6,10 +6,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <span class="section-label d-block text-muted font-monospace small">// MANAGEMENT</span>
-        <h1 class="h2 text-white font-monospace m-0">TALKS_</h1>
+        <span class="section-label d-block text-white-50  small">// MANAGEMENT</span>
+        <h1 class="h2 text-white  m-0">TALKS_</h1>
     </div>
-    <a asp-action="Create" class="btn btn-outline-success font-monospace">
+    <a asp-action="Create" class="btn btn-primary">
         <i class="fa-solid fa-plus me-1"></i> CREATE NEW
     </a>
 </div>
@@ -19,7 +19,7 @@
         <div class="table-responsive">
             <table class="table table-dark table-hover align-middle m-0">
                 <thead>
-                    <tr class="border-bottom border-secondary font-monospace text-muted small">
+                    <tr class="border-bottom border-secondary  text-white-50 small">
                         <th class="ps-4">#</th>
                         <th>TALK TITLE</th>
                         <th>SPEAKER & TRACK</th>
@@ -33,7 +33,7 @@
                     @if (!Model.Any())
                     {
                         <tr>
-                            <td colspan="7" class="text-center py-5 text-muted font-monospace">
+                            <td colspan="7" class="text-center py-5 text-white-50 ">
                                 No talks configured. Click "Create New" to add one.
                             </td>
                         </tr>
@@ -43,27 +43,26 @@
                         @foreach (var talk in Model)
                         {
                             <tr>
-                                <td class="ps-4 font-monospace text-muted">@talk.Id</td>
+                                <td class="ps-4  text-white-50">@talk.Id</td>
                                 <td>
                                     <strong class="text-white d-block">@talk.Title</strong>
-                                    <span class="text-muted font-monospace small">
+                                    <span class="text-white-50  small">
                                         @(talk.Conference != null ? talk.Conference.Name : "No Conference")
                                     </span>
                                 </td>
-                                <td class="font-monospace text-light">
+                                <td class=" text-light">
                                     <div>@(talk.Speaker != null ? $"{talk.Speaker.FirstName} {talk.Speaker.LastName}" : "Unassigned")</div>
                                     @if (talk.Track != null)
                                     {
-                                        <span class="badge border small mt-1" style="background-color: @(talk.Track.Color ?? "#6c757d"); color: #fff;">
+                                        <span class="badge border small mt-1 rounded-0" style="border-left:5px solid @talk.Track.Color !important; background-color:var(--neutral-900);">
                                             @talk.Track.Name
                                         </span>
                                     }
                                 </td>
-                                <td class="font-monospace text-muted small">
-                                    <i class="fa-solid fa-door-open me-1"></i>
-                                    @(talk.Room != null ? talk.Room.Name : "TBA")
+                                <td class=" text-white-50 small">
+                                    @talk.Room.Name
                                 </td>
-                                <td class="font-monospace text-muted small">
+                                <td class=" text-white-50 small">
                                     <div>@talk.StartDateTime.ToString("MMM dd, yyyy")</div>
                                     <div class="text-info">@talk.StartDateTime.ToString("HH:mm") - @talk.EndDateTime.ToString("HH:mm")</div>
                                 </td>
@@ -71,16 +70,20 @@
                                     <div class="d-flex flex-column gap-1">
                                         @if (talk.IsKeynote)
                                         {
-                                            <span class="badge bg-warning text-dark font-monospace">KEYNOTE</span>
+                                            <span class="badge bg-info text-dark  rounded-0">KEYNOTE</span>
                                         }
                                         @if (talk.IsFeatured)
                                         {
-                                            <span class="badge bg-info text-dark font-monospace">FEATURED</span>
+                                            <span class="badge bg-warning text-dark  rounded-0">FEATURED</span>
+                                        } 
+                                        @if (!talk.IsFeatured && !talk.IsKeynote)
+                                        {
+                                            <span class="badge bg-dark border border-secondary text-white-50 rounded-0">STANDARAD</span>
                                         }
                                     </div>
                                 </td>
                                 <td class="text-end pe-4">
-                                    <div class="btn-group btn-group-sm">
+                                    <div class="d-inline-flex gap-2 align-items-center btn-group btn-group-sm">
                                         <a asp-action="Details" asp-route-id="@talk.Id" class="btn btn-outline-info" title="Details">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>

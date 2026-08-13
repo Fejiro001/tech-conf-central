@@ -1,99 +1,111 @@
-﻿@model TechConfCentral.Models.Talk
+﻿@model TalkFormViewModel
 
 @{
     ViewData["Title"] = "Edit Talk";
 }
 
 <div class="mb-4">
-    <a asp-action="Index" class="text-muted text-decoration-none font-monospace small">
-        &larr; BACK TO LIST
+    <a asp-action="Index" class="text-white-50 text-decoration-none  small">
+        <i class="fa-solid fa-arrow-left"></i> BACK TO LIST
     </a>
-    <h1 class="h2 text-white font-monospace mt-2">// EDIT TALK #@Model.Id</h1>
+    <h1 class="h2 text-white  mt-2">// EDIT TALK #@Model.Talk.Id</h1>
 </div>
 
 <div class="row">
-    <div class="col-lg-9">
-        <div class="card bg-dark border-secondary p-4">
+    <div>
+        <div class="card bg-dark border-secondary p-4 rounded-0">
             <form asp-action="Edit" method="post">
                 @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="Id" />
-                <div asp-validation-summary="ModelOnly" class="text-danger font-monospace mb-3"></div>
+                <input type="hidden" asp-for="Talk.Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger  mb-3"></div>
 
                 <div class="mb-3">
-                    <label asp-for="Title" class="form-label font-monospace text-light">Talk Title</label>
-                    <input asp-for="Title" class="form-control bg-dark text-white border-secondary" />
-                    <span asp-validation-for="Title" class="text-danger font-monospace small"></span>
+                    <label asp-for="Talk.Title" class="form-label  text-light">Talk Title</label>
+                    <input asp-for="Talk.Title" class="form-control bg-dark text-white border-secondary" />
+                    <span asp-validation-for="Talk.Title" class="text-danger  small"></span>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="ConferenceId" class="form-label font-monospace text-light">Conference</label>
-                        <select asp-for="ConferenceId" class="form-select bg-dark text-white border-secondary font-monospace" asp-items="ViewBag.ConferenceId"></select>
-                        <span asp-validation-for="ConferenceId" class="text-danger font-monospace small"></span>
+                        <label asp-for="Talk.ConferenceId" class="form-label  text-light">Conference</label>
+                        <select asp-for="Talk.ConferenceId" class="form-select bg-dark text-white border-secondary "
+                                asp-items="@(new SelectList(Model.Conferences, "Id", "Name", Model.Talk.ConferenceId))">
+                            <option value="">-- Select Conference --</option>
+                        </select>
+                        <span asp-validation-for="Talk.ConferenceId" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="SpeakerId" class="form-label font-monospace text-light">Speaker</label>
-                        <select asp-for="SpeakerId" class="form-select bg-dark text-white border-secondary font-monospace" asp-items="ViewBag.SpeakerId"></select>
-                        <span asp-validation-for="SpeakerId" class="text-danger font-monospace small"></span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="TrackId" class="form-label font-monospace text-light">Track</label>
-                        <select asp-for="TrackId" class="form-select bg-dark text-white border-secondary font-monospace" asp-items="ViewBag.TrackId"></select>
-                        <span asp-validation-for="TrackId" class="text-danger font-monospace small"></span>
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="RoomId" class="form-label font-monospace text-light">Room / Venue Space</label>
-                        <select asp-for="RoomId" class="form-select bg-dark text-white border-secondary font-monospace" asp-items="ViewBag.RoomId"></select>
-                        <span asp-validation-for="RoomId" class="text-danger font-monospace small"></span>
+                        <label asp-for="Talk.SpeakerId" class="form-label  text-light">Speaker</label>
+                        <select asp-for="Talk.SpeakerId" class="form-select bg-dark text-white border-secondary "
+                                asp-items="@(new SelectList(Model.Speakers.Select(s => new { Id = s.Id, Name = $"{s.FirstName} {s.LastName}" }), "Id", "Name", Model.Talk.SpeakerId))">
+                            <option value="">-- Select Speaker --</option>
+                        </select>
+                        <span asp-validation-for="Talk.SpeakerId" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="StartDateTime" class="form-label font-monospace text-light">Start Time</label>
-                        <input asp-for="StartDateTime" type="datetime-local" value="@Model.StartDateTime.ToString("yyyy-MM-ddTHH:mm")" class="form-control bg-dark text-white border-secondary font-monospace" />
-                        <span asp-validation-for="StartDateTime" class="text-danger font-monospace small"></span>
+                        <label asp-for="Talk.TrackId" class="form-label  text-light">Track</label>
+                        <select asp-for="Talk.TrackId" class="form-select bg-dark text-white border-secondary "
+                                asp-items="@(new SelectList(Model.Tracks, "Id", "Name", Model.Talk.TrackId))">
+                            <option value="">-- Select Track --</option>
+                        </select>
+                        <span asp-validation-for="Talk.TrackId" class="text-danger  small"></span>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="EndDateTime" class="form-label font-monospace text-light">End Time</label>
-                        <input asp-for="EndDateTime" type="datetime-local" value="@Model.EndDateTime.ToString("yyyy-MM-ddTHH:mm")" class="form-control bg-dark text-white border-secondary font-monospace" />
-                        <span asp-validation-for="EndDateTime" class="text-danger font-monospace small"></span>
+                        <label asp-for="Talk.RoomId" class="form-label  text-light">Room / Venue Space</label>
+                        <select asp-for="Talk.RoomId" class="form-select bg-dark text-white border-secondary "
+                                asp-items="@(new SelectList(Model.Rooms, "Id", "Name", Model.Talk.RoomId))">
+                            <option value="">-- Select Room --</option>
+                        </select>
+                        <span asp-validation-for="Talk.RoomId" class="text-danger  small"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Talk.StartDateTime" class="form-label  text-light">Start Time</label>
+                        <input asp-for="Talk.StartDateTime" type="datetime-local" value="@Model.Talk.StartDateTime.ToString("yyyy-MM-ddTHH:mm")" class="form-control bg-dark text-white border-secondary " />
+                        <span asp-validation-for="Talk.StartDateTime" class="text-danger  small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Talk.EndDateTime" class="form-label  text-light">End Time</label>
+                        <input asp-for="Talk.EndDateTime" type="datetime-local" value="@Model.Talk.EndDateTime.ToString("yyyy-MM-ddTHH:mm")" class="form-control bg-dark text-white border-secondary " />
+                        <span asp-validation-for="Talk.EndDateTime" class="text-danger  small"></span>
                     </div>
                 </div>
 
                 <div class="d-flex gap-4 mb-4">
                     <div class="form-check form-switch">
-                        <input asp-for="IsKeynote" class="form-check-input" type="checkbox" role="switch" id="isKeynoteSwitch">
-                        <label class="form-check-label font-monospace text-light" for="isKeynoteSwitch">
+                        <input asp-for="Talk.IsKeynote" class="form-check-input" type="checkbox" role="switch" id="isKeynoteSwitch">
+                        <label class="form-check-label  text-light" for="isKeynoteSwitch">
                             Keynote Presentation
                         </label>
                     </div>
 
                     <div class="form-check form-switch">
-                        <input asp-for="IsFeatured" class="form-check-input" type="checkbox" role="switch" id="isFeaturedSwitch">
-                        <label class="form-check-label font-monospace text-light" for="isFeaturedSwitch">
+                        <input asp-for="Talk.IsFeatured" class="form-check-input" type="checkbox" role="switch" id="isFeaturedSwitch">
+                        <label class="form-check-label  text-light" for="isFeaturedSwitch">
                             Feature on Schedule Header
                         </label>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Description" class="form-label font-monospace text-light">Talk Abstract / Description</label>
-                    <textarea asp-for="Description" rows="5" class="form-control bg-dark text-white border-secondary"></textarea>
-                    <span asp-validation-for="Description" class="text-danger font-monospace small"></span>
+                    <label asp-for="Talk.Description" class="form-label  text-light">Talk Abstract / Description</label>
+                    <textarea asp-for="Talk.Description" rows="5" class="form-control bg-dark text-white border-secondary"></textarea>
+                    <span asp-validation-for="Talk.Description" class="text-danger  small"></span>
                 </div>
 
                 <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-warning font-monospace px-4">
+                    <button type="submit" class="btn btn-primary btn-warning  px-4">
                         <i class="fa-solid fa-pen me-1"></i> UPDATE TALK
                     </button>
-                    <a asp-action="Index" class="btn btn-outline-secondary font-monospace">CANCEL</a>
+                    <a asp-action="Index" class="btn btn-outline-secondary ">CANCEL</a>
                 </div>
             </form>
         </div>
