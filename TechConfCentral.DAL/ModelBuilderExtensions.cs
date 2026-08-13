@@ -86,7 +86,7 @@ namespace TechConfCentral.DAL
                     JobTitle = "Principal Frontend Engineer",
                     Company = "Bytecraft",
                     Biography = "Elena has spent the last decade pushing the boundaries of in-browser development environments. She led the browser-native IDE initiative at Bytecraft and is a frequent contributor to the TC39 process. Her work focuses on making the web platform a first-class development target.",
-                    ProfileImage = "",
+                    ProfileImage = "https://api.dicebear.com/10.x/notionists/svg?seed=ElenaVasquez",
                     IsFeatured = true
                 },
                 new Speaker
@@ -97,7 +97,7 @@ namespace TechConfCentral.DAL
                     JobTitle = "Senior Frontend Engineer",
                     Company = "Pied Piper",
                     Biography = "Dinesh is a senior frontend engineer at Pied Piper, where he led the development of the Pied Piper video chat platform and the consumer-facing web interface. He specializes in real-time video compression on the client side and has deep experience with WebRTC, codec optimization, and building performant media experiences in the browser.",
-                    ProfileImage = "",
+                    ProfileImage = "https://api.dicebear.com/10.x/notionists/svg?seed=DineshChugtai",
                     IsFeatured = false
                 },
                 new Speaker
@@ -108,7 +108,7 @@ namespace TechConfCentral.DAL
                     JobTitle = "Engineering Director",
                     Company = "Cartwell",
                     Biography = "James oversees Cartwell's frontend platform team, managing the monorepo that powers thousands of internal and merchant-facing applications. He's a vocal advocate for developer experience as a product concern and has led the company's migration to a unified build system serving over 300 engineers.",
-                    ProfileImage = "",
+                    ProfileImage = "https://api.dicebear.com/10.x/notionists/svg?seed=JamesOkonkwo",
                     IsFeatured = true
                 },
                 new Speaker
@@ -119,8 +119,8 @@ namespace TechConfCentral.DAL
                     JobTitle = "Staff Engineer",
                     Company = "Roamly",
                     Biography = "Mei-Lin is a CSS Working Group invited expert and the architect behind Roamly's responsive design system. She's been a leading voice in the container queries specification process and has helped ship container query-based layouts to production.",
-                    ProfileImage = "",
-                    IsFeatured = false
+                    ProfileImage = "https://api.dicebear.com/10.x/notionists/svg?seed=Mei-LinZhang",
+                    IsFeatured = true
                 },
                 new Speaker
                 {
@@ -130,7 +130,7 @@ namespace TechConfCentral.DAL
                     JobTitle = "Senior Developer Advocate",
                     Company = "Cobalt",
                     Biography = "Priya works on the developer relations team at Cobalt, focusing on accessibility tooling and standards education. She created the popular 'A11y Myths Busted' video series and contributes to the browser's accessibility auditing rules.",
-                    ProfileImage = "",
+                    ProfileImage = "https://api.dicebear.com/10.x/notionists/svg?seed=PriyaSharma",
                     IsFeatured = true
                 }
             );
