@@ -8,7 +8,7 @@
     <section class="hero-section">
         <div class="row g-4">
             <!-- Left Hero Box -->
-            <div class="col-lg-7">
+            <div class="@(Model.FeaturedKeynote != null ? "col-lg-7" : "col-lg-full")">
                 <div class="hero-main-card d-flex flex-column justify-content-between h-100">
                     <div class="hero-body">
                         <h1 class="hero-title">
@@ -22,10 +22,10 @@
                 </div>
             </div>
 
+            @if (Model.FeaturedKeynote != null)
+            {
             <!-- Right Hero Box (Featured Keynote) -->
             <div class="col-lg-5">
-                @if (Model.FeaturedKeynote != null)
-                {
                     <div class="keynote-card h-100">
                         <div class="keynote-content">
                             <span class="section-label keynote-label">// FEATURED KEYNOTE</span>
@@ -48,8 +48,8 @@
                             </div>
                         }
                     </div>
-                }
             </div>
+            }
         </div>
     </section>
 

@@ -364,6 +364,13 @@ p, span, a, td {
 /* ==========================================================================
    HEADER & BOOTSTRAP NAVBAR OVERRIDES
    ========================================================================== */
+.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
 /* Header Container */
 .site-header {
     background-color: var(--neutral-900);
