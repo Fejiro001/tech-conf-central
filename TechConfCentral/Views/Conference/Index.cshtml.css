@@ -128,39 +128,6 @@
     justify-content: center;
 }
 
-/* Ticket Stub / Barcode Right Side */
-.ticket-stub {
-    width: 140px;
-    border-left: 2px dashed var(--neutral-900);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-}
-
-.ticket-time {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.8rem;
-    line-height: 1.1;
-}
-
-.ticket-time strong {
-    font-family: var(--font-sans);
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 800;
-    margin-bottom: 0.15rem;
-}
-
-/* Barcode */
-.ticket-barcode {
-    width: 100%;
-    height: 28px;
-}
-
 .ticket-day-tag {
     font-family: var(--font-mono);
     font-size: 0.75rem;

@@ -37,7 +37,6 @@ namespace TechConfCentral.Controllers
             try
             {
                 await _savedTalkService.SaveTalkAsync(userId, talkId);
-                TempData["SuccessMessage"] = "Talk added to your schedule!";
             }
             catch (InvalidOperationException ex)
             {

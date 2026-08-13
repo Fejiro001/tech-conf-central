@@ -1010,6 +1010,7 @@ p, span, a, td {
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 0.5rem;
+    cursor: pointer;
 
     span {
         color: var(--neutral-600);
