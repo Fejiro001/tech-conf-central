@@ -23,6 +23,7 @@ namespace TechConfCentral.DAL
             return await _context.Speakers
                 .Where(s => s.IsFeatured)
                 .Where(s => s.Talks.Any(t => t.ConferenceId == conferenceId))
+                .Include(s => s.Talks)
                 .AsNoTracking()
                 .ToListAsync();
         }
