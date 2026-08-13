@@ -24,6 +24,8 @@ namespace TechConfCentral.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int conferenceId)
         {
+            // persist conference id in session storage
+            HttpContext.Session.SetInt32("CurrentConferenceId", conferenceId);
             Conference? currentConf = await _conferenceService.GetConferenceByIdAsync(conferenceId);
 
             if (currentConf == null)

@@ -44,6 +44,15 @@ namespace TechConfCentral
             builder.Services.AddScoped<SavedTalkRepository>();
             builder.Services.AddScoped<SavedTalkService>();
 
+            // 1. MUST register these services BEFORE builder.Build()
+            builder.Services.AddDistributedMemoryCache(); // Provides the backing storage for sessions
+            builder.Services.AddSession(options =>        // Registers the session services
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             // MVC
             builder.Services.AddControllersWithViews();
 
@@ -71,7 +80,7 @@ namespace TechConfCentral
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
