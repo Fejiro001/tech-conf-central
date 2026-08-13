@@ -18,11 +18,11 @@
     <div class="sticky">
     @if (User.IsInRole("Admin"))
     {
-        <div class="bg-warning text-dark py-1 px-3 d-flex justify-content-between align-items-center font-monospace small">
+        <div class="bg-warning text-dark py-2 px-3 d-flex justify-content-between align-items-center font-monospace small">
             <div>
                 <i class="fa-solid fa-user-gear me-1"></i> <strong>ADMIN MODE</strong>
             </div>
-            <div class="d-flex gap-3">
+                <div class="d-flex gap-3 admin-nav">
                 <a asp-controller="AdminConference" asp-action="Index" class="text-dark text-decoration-none fw-bold">Conferences</a>
                 <span>|</span>
                 <a asp-controller="AdminRoom" asp-action="Index" class="text-dark text-decoration-none fw-bold">Rooms</a>

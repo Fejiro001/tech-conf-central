@@ -371,6 +371,11 @@ p, span, a, td {
     z-index: 10;
 }
 
+.admin-nav a:hover {
+    background-color: var(--neutral-900);
+    color: #ffc107 !important;
+}
+
 /* Header Container */
 .site-header {
     background-color: var(--neutral-900);

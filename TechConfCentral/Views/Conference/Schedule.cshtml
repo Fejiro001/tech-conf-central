@@ -4,11 +4,9 @@
     ViewData["Title"] = $"{Model.Conference?.Name ?? "Conference"} - Schedule";
 
     // Calculate total days for the conference filter tabs
-    int totalDays = 1;
-    if (Model.Conference != null)
-    {
-        totalDays = (Model.Conference.EndDate.ToDateTime(TimeOnly.MinValue) - Model.Conference.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
-    }
+    int totalDays = Model.Conference != null
+                    ? Model.Conference.EndDate.DayNumber - Model.Conference.StartDate.DayNumber + 1
+                    : 1;
 }
 
 <div class="main-container">

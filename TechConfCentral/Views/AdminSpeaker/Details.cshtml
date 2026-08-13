@@ -72,6 +72,7 @@
                             <th class="ps-4">TALK TITLE</th>
                             <th>TRACK</th>
                             <th>CONFERENCE</th>
+                            <th class="text-end pe-4">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +97,16 @@
                                     </td>
                                     <td class=" text-white-50 small">
                                         @(talk.Conference != null ? talk.Conference.Name : "Unassigned")
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-inline-flex gap-2 align-items-center btn-group btn-group-sm">
+                                            <a asp-action="Details" asp-controller="AdminTalk" asp-route-id="@talk.Id" class="btn btn-outline-info" title="Details">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a asp-action="Edit" asp-controller="AdminTalk" asp-route-id="@talk.Id" class="btn btn-outline-warning" title="Edit">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             }
