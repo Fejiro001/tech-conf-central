@@ -14,6 +14,7 @@ namespace TechConfCentral.DAL
         public async Task<List<Speaker>> GetSpeakersAsync()
         {
             return await _context.Speakers
+                .Include(s => s.Talks)
                 .AsNoTracking()
                 .ToListAsync();
         }

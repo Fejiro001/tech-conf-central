@@ -54,7 +54,7 @@
                                     @conf.StartDate.ToString("MMM dd, yyyy") - @conf.EndDate.ToString("MMM dd, yyyy")
                                 </td>
                                 <td class="text-end pe-4">
-                                    <div class="d-inline-flex gap-2 btn-group btn-group-sm">
+                                    <div class="d-inline-flex gap-2 align-items-center btn-group btn-group-sm">
                                         <a asp-action="Details" asp-route-id="@conf.Id" class="btn btn-outline-info" title="Details">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
@@ -63,7 +63,7 @@
                                         </a>
                                         <form asp-action="Delete" asp-route-id="@conf.Id" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this conference?');">
                                             @Html.AntiForgeryToken()
-                                            <button type="submit" class="d-inline-flex align-items-center btn btn-outline-danger rounded-0" title="Delete">
+                                            <button type="submit" class="d-inline-flex align-items-center btn btn-outline-danger" title="Delete">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </form>

@@ -54,13 +54,13 @@
                                     @(room.Talks?.Count ?? 0) talk(s)
                                 </td>
                                 <td class="text-end pe-4">
-                                    <div class="d-inline-flex gap-2 btn-group btn-group-sm">
-                                        <a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-outline-warning rounded-0" title="Edit">
+                                    <div class="d-inline-flex gap-2 align-items-center btn-group btn-group-sm">
+                                        <a asp-action="Edit" asp-route-id="@room.Id" class="btn btn-outline-warning" title="Edit">
                                             <i class="fa-solid fa-pen"></i>
                                         </a>
                                         <form asp-action="Delete" asp-route-id="@room.Id" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete @room.Name?');">
                                             @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-outline-danger rounded-0" title="Delete">
+                                            <button type="submit" class="btn btn-outline-danger" title="Delete">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </form>
