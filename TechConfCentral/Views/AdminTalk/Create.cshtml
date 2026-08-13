@@ -27,7 +27,11 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Talk.ConferenceId" class="form-label  text-light">Conference</label>
-                        <select asp-for="Talk.ConferenceId" class="form-select bg-dark text-white border-secondary " asp-items="@(new SelectList(Model.Conferences, "Id", "Name"))">
+                        <select asp-for="Talk.ConferenceId" class="form-select bg-dark text-white border-secondary " asp-items="@(new SelectList(Model.Conferences.Select(c => new
+                                {
+                                    Id = c.Id,
+                                    DisplayText = $"{c.Name} ({c.StartDate:yyyy-MM-dd} - {c.EndDate:yyyy-MM-dd})"
+                                }), "Id", "DisplayText", Model.Talk.ConferenceId))">
                             <option value="">-- Select Conference --</option>
                         </select>
                         <span asp-validation-for="Talk.ConferenceId" class="text-danger  small"></span>
