@@ -43,9 +43,7 @@ namespace TechConfCentral.BLL
         {
             ValidateConference(conference);
 
-            Conference? existing = await _repository.GetConferenceByIdAsync(conference.Id);
-
-            if (existing == null)
+            if (!await _repository.ConferenceExistsAsync(conference.Id))
             {
                 throw new KeyNotFoundException();
             }

@@ -21,7 +21,15 @@ namespace TechConfCentral.DAL
         // Get conference by id
         public async Task<Conference?> GetConferenceByIdAsync(int id)
         {
-            return await _context.Conferences.FindAsync(id);
+            return await _context.Conferences
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+        // Checks if conference exists
+        public async Task<bool> ConferenceExistsAsync(int id)
+        {
+            return await _context.Conferences
+                .AnyAsync(c => c.Id == id);
         }
         // Get conference by id with its Talks
         public async Task<Conference?> GetConferenceWithTalksAsync(int id)

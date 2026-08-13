@@ -76,11 +76,11 @@ li {
     list-style: none;
 }
 
-h1, h2, h3 {
+h1, h2, h3, th {
     font-family: var(--font-sans);
 }
 
-p, span, a {
+p, span, a, td {
     font-family: var(--font-mono);
 }
 
@@ -103,6 +103,13 @@ p, span, a {
     font-weight: 900;
 }
 
+.truncate {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    width:300px;
+}
+
 /* Primary Button */
 .btn-primary {
     display: inline-flex;
@@ -114,6 +121,7 @@ p, span, a {
     border: 1px solid var(--green-200);
     border-radius: 0;
     padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
@@ -128,6 +136,36 @@ p, span, a {
     background-color: var(--green-200);
     color: var(--neutral-900);
     box-shadow: 4px 4px 0 0 var(--neutral-600);
+}
+
+.btn-outline-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--neutral-200);
+    border: 1px solid var(--neutral-200);
+    border-radius: 0;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0 0 var(--neutral-200);
+    margin-bottom: 1rem;
+}
+
+.btn-warning {
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #ffc107;
 }
 
 .site-body {
@@ -149,7 +187,7 @@ p, span, a {
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--neutral-200);
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: 0.5px;
     margin-bottom: 0.4rem;
     display: block;
@@ -280,6 +318,15 @@ p, span, a {
     display: block;
     text-transform: uppercase;
 }
+
+.validation-summary-errors ul {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
 
 /* ==========================================================================
    HEADER & BOOTSTRAP NAVBAR OVERRIDES
