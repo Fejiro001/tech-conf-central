@@ -1,0 +1,69 @@
+﻿@model TechConfCentral.Models.Track
+
+@{
+    ViewData["Title"] = "Create Track";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-muted text-decoration-none font-monospace small">
+        &larr; BACK TO LIST
+    </a>
+    <h1 class="h2 text-white font-monospace mt-2">// CREATE TRACK</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card bg-dark border-secondary p-4">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger font-monospace mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label font-monospace text-light">Track Name</label>
+                    <input asp-for="Name" class="form-control bg-dark text-white border-secondary" placeholder="e.g. AI & Machine Learning, Web Architecture, Cybersecurity" />
+                    <span asp-validation-for="Name" class="text-danger font-monospace small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Color" class="form-label font-monospace text-light">Track Hex / Color Code</label>
+                    <div class="input-group">
+                        <input asp-for="Color" type="color" class="form-control form-control-color bg-dark border-secondary p-1" style="max-width: 60px;" id="colorPicker" value="#0d6efd" title="Choose color" />
+                        <input asp-for="Color" type="text" class="form-control bg-dark text-white border-secondary" id="colorInput" placeholder="#0d6efd" />
+                    </div>
+                    <span asp-validation-for="Color" class="text-danger font-monospace small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label font-monospace text-light">Description (Optional)</label>
+                    <textarea asp-for="Description" rows="4" class="form-control bg-dark text-white border-secondary" placeholder="Brief summary of what this track encompasses..."></textarea>
+                    <span asp-validation-for="Description" class="text-danger font-monospace small"></span>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success font-monospace px-4">
+                        <i class="fa-solid fa-check me-1"></i> SAVE TRACK
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary font-monospace">CANCEL</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const colorInput = document.getElementById('colorInput');
+
+        colorPicker?.addEventListener('input', (e) => {
+            colorInput.value = e.target.value;
+        });
+
+        colorInput?.addEventListener('input', (e) => {
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(e.target.value)) {
+                colorPicker.value = e.target.value;
+            }
+        });
+    </script>
+}
