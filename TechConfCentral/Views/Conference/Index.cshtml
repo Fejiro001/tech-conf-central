@@ -120,7 +120,8 @@
             <div class="d-flex flex-column gap-3 pb-4">
                 @foreach (Talk talk in Model.FeaturedTalks)
                 {
-                    int day = (talk.StartDateTime.Date - talk.Conference.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
+                    var talkDate = DateOnly.FromDateTime(talk.StartDateTime);
+                    int day = talkDate.DayNumber - talk.Conference.StartDate.DayNumber + 1;
                     var collapseId = $"talkDetails-{talk.Id}";
 
 
@@ -133,7 +134,7 @@
                         <!-- Main Ticket Body -->
                         <div class="ticket-main-body">
                             <h3 class="ticket-title">@talk.Title</h3>
-                            <p class="ticket-speaker">
+                            <p class="ticket-speaker" onclick="openSpeakerModal(@talk.Speaker?.Id)">
                                 @talk.Speaker?.FirstName @talk.Speaker?.LastName // <span>@talk.Speaker?.Company</span>
                             </p>
 
@@ -171,8 +172,8 @@
                         <!-- Right Ticket Stub / Barcode -->
                         <div class="ticket-stub">
                             <div class="ticket-time">
-                                <strong>@talk.StartDateTime.ToString("HH:mm")</strong>
-                                <span>@talk.EndDateTime.ToString("HH:mm")</span>
+                                <strong>@talk.StartDateTime.ToString("MMM dd, HH:mm")</strong>
+                                <span>@talk.EndDateTime.ToString("MMM dd, HH:mm")</span>
                             </div>
                             <div>
                                 <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
