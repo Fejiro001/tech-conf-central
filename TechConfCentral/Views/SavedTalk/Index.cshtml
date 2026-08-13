@@ -11,8 +11,7 @@
         <div>
             <span class="section-label">// PERSONAL_AGENDA</span>
             <h1 class="hero-title text-lowercase m-0">my saved schedule</h1>
-            <p class="hero-text mb-0">
-                <i class="fa-solid fa-bookmark text-green me-2"></i>
+            <p class="mb-0 text-white-50 my-3" style="font-size:14px;">
                 @if (Model.SavedTalks != null && Model.SavedTalks.Any())
                 {
                     <span>@Model.SavedTalks.Count() talk(s) saved to your personal itinerary</span>
@@ -25,33 +24,10 @@
         </div>
         <div>
             <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@conferenceId" class="btn-primary text-nowrap">
-                <i class="fa-solid fa-calendar-days me-2"></i>Browse Full Schedule
+                <i class="fa-solid fa-calendar-days me-2"></i>Browse Schedule
             </a>
         </div>
     </header>
-
-    <!-- NOTIFICATION ALERTS -->
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="app-alert alert-success d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <i class="fa-solid fa-circle-check me-2"></i>
-                <span>@TempData["SuccessMessage"]</span>
-            </div>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
-    @if (TempData["WarningMessage"] != null)
-    {
-        <div class="app-alert alert-warning d-flex align-items-center justify-content-between mb-4">
-            <div>
-                <i class="fa-solid fa-triangle-exclamation me-2"></i>
-                <span>@TempData["WarningMessage"]</span>
-            </div>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
 
     <!-- SAVED TALKS LIST -->
     @if (Model.SavedTalks != null && Model.SavedTalks.Any())
@@ -60,7 +36,6 @@
             @foreach (var savedItem in Model.SavedTalks)
             {
                 var talk = savedItem.Talk;
-
                 if (talk == null) continue;
 
                 var trackTextColor = !string.IsNullOrWhiteSpace(talk.Track?.Color) ? talk.Track.Color : "var(--green-200)";
@@ -79,7 +54,7 @@
                         <div>
                             @if (talk.Conference != null)
                             {
-                                <span class="badge bg-dark text-uppercase mb-2 font-monospace" style="border: 1px solid var(--neutral-900);">
+                                <span class="badge bg-dark text-uppercase mb-2 font-monospace rounded-0" style="border: 1px solid var(--neutral-900);">
                                     @talk.Conference.Name
                                 </span>
                             }
@@ -90,51 +65,47 @@
                             {
                                 <p class="ticket-speaker text-uppercase mt-2 mb-2">
                                     @talk.Speaker.FirstName @talk.Speaker.LastName
-                                    @if (!string.IsNullOrEmpty(talk.Speaker.Company))
-                                    {
-                                        <span> // @talk.Speaker.Company</span>
-                                    }
+                                    <span> // @talk.Speaker.Company</span>
                                 </p>
                             }
 
-                            <!-- ACCORDION TRIGGER -->
-                            <button class="btn-ticket-accordion text-uppercase mt-2"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#@collapseId"
-                                    aria-expanded="false"
-                                    aria-controls="@collapseId">
-                                <span class="btn-text">View Details</span>
-                                <i class="fa-solid fa-chevron-down accordion-arrow ms-1"></i>
-                            </button>
-
                             <!-- ACCORDION DETAILS -->
                             <div class="collapse mt-3" id="@collapseId">
-                                <div class="ticket-accordion-body p-3">
+                                <div class="ticket-accordion-body">
                                     @if (!string.IsNullOrEmpty(talk.Description))
                                     {
-                                        <p class="ticket-talk-description mb-3">
+                                        <p class="ticket-talk-description line-clamp-2">
                                             @talk.Description
                                         </p>
                                     }
 
                                     @if (talk.Room != null)
                                     {
-                                        <div class="d-flex align-items-center">
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
                                             <span class="ticket-meta-pill">
-                                                <i class="fa-solid fa-door-open me-1"></i>Location: @talk.Room.Name
+                                                Location: @talk.Room.Name
                                             </span>
                                         </div>
                                     }
                                 </div>
                             </div>
+
+                            <button class="btn-ticket-accordion text-uppercase mt-4"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="false"
+                                    aria-controls="@collapseId">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="btn-text">Talk Details</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- RIGHT TICKET STUB WITH REMOVE ACTION -->
-                    <div class="ticket-stub p-3 p-md-4 d-flex flex-column align-items-center justify-content-between">
+                    <div class="ticket-stub p-3 p-md-4 d-flex align-items-center justify-content-between">
                         <div class="ticket-time-box text-center">
-                            <span class="d-block fw-bold fs-3 time-main">@talk.StartDateTime.ToString("H:mm")</span>
+                            <span class="d-block fw-bold time-main">@talk.StartDateTime.ToString("H:mm")</span>
                             <span class="small time-sub">@talk.EndDateTime.ToString("H:mm")</span>
                         </div>
 
@@ -148,8 +119,8 @@
                             <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="talkId" value="@talk.Id" />
-                                <button type="submit" class="btn-ticket-star active" title="Remove from Schedule">
-                                    <i class="fa-solid fa-star text-warning"></i>
+                                <button type="submit" class="btn-ticket-star" title="Remove from Schedule">
+                                    <i class="fa-solid fa-star active"></i>
                                 </button>
                             </form>
                         }
