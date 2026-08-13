@@ -14,6 +14,7 @@ namespace TechConfCentral.DAL
         public async Task<List<Track>> GetTracksAsync()
         {
             return await _context.Tracks
+                .Include(t => t.Talks)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.RegularExpressions;
 using TechConfCentral.DAL;
 using TechConfCentral.Models;
 
@@ -7,6 +7,9 @@ namespace TechConfCentral.BLL
     public class TrackService
     {
         private readonly TrackRepository _repository;
+
+        // Regex pattern matches standard hex colors: #FFF, #FFFFFF, or #FFFFFFFF (with alpha)
+        private static readonly Regex HexColorRegex = new(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$", RegexOptions.Compiled);
         public TrackService(TrackRepository repository)
         {
             _repository = repository;
@@ -60,6 +63,17 @@ namespace TechConfCentral.BLL
             if (nameExists)
             {
                 throw new ArgumentException($"A track with the name '{track.Name}' already exists.");
+            }
+
+            // Validate track color
+            if (string.IsNullOrWhiteSpace(track.Color))
+            {
+                throw new ArgumentException("Track color is required.");
+            }
+
+            if (!HexColorRegex.IsMatch(track.Color.Trim()))
+            {
+                throw new ArgumentException($"'{track.Color}' is not a valid hex color code. Format must be #RGB or #RRGGBB (e.g., #FF5733).");
             }
         }
     }
