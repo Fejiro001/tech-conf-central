@@ -1,0 +1,171 @@
+﻿@model SavedTalksViewModel
+
+@{
+    ViewData["Title"] = "My Schedule";
+    var conferenceId = Context.Session.GetInt32("CurrentConferenceId");
+}
+
+<div class="main-container">
+    <!-- PAGE HEADER -->
+    <header class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
+        <div>
+            <span class="section-label">// PERSONAL_AGENDA</span>
+            <h1 class="hero-title text-lowercase m-0">my saved schedule</h1>
+            <p class="hero-text mb-0">
+                <i class="fa-solid fa-bookmark text-green me-2"></i>
+                @if (Model.SavedTalks != null && Model.SavedTalks.Any())
+                {
+                    <span>@Model.SavedTalks.Count() talk(s) saved to your personal itinerary</span>
+                }
+                else
+                {
+                    <span>You haven't bookmarked any talks yet</span>
+                }
+            </p>
+        </div>
+        <div>
+            <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@conferenceId" class="btn-primary text-nowrap">
+                <i class="fa-solid fa-calendar-days me-2"></i>Browse Full Schedule
+            </a>
+        </div>
+    </header>
+
+    <!-- NOTIFICATION ALERTS -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="app-alert alert-success d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <i class="fa-solid fa-circle-check me-2"></i>
+                <span>@TempData["SuccessMessage"]</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["WarningMessage"] != null)
+    {
+        <div class="app-alert alert-warning d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                <span>@TempData["WarningMessage"]</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- SAVED TALKS LIST -->
+    @if (Model.SavedTalks != null && Model.SavedTalks.Any())
+    {
+        <div class="schedule-ticket-container d-flex flex-column gap-4">
+            @foreach (var savedItem in Model.SavedTalks)
+            {
+                var talk = savedItem.Talk;
+
+                if (talk == null) continue;
+
+                var trackTextColor = !string.IsNullOrWhiteSpace(talk.Track?.Color) ? talk.Track.Color : "var(--green-200)";
+                var collapseId = $"savedTalkDetails-{talk.Id}";
+
+                <div class="ticket-card d-flex" style="background-color:@trackTextColor;">
+
+                    <!-- TRACK STRIP -->
+                    <div class="ticket-track-strip" style="color:@trackTextColor;">
+                        @talk.Track?.Name
+                    </div>
+
+                    <!-- MAIN CONTENT -->
+                    <div class="ticket-content p-3 p-md-4 flex-grow-1 d-flex flex-column justify-content-between">
+                        <div>
+                            @if (talk.Conference != null)
+                            {
+                                <span class="badge bg-dark text-uppercase mb-2 font-monospace" style="border: 1px solid var(--neutral-900);">
+                                    @talk.Conference.Name
+                                </span>
+                            }
+
+                            <h2 class="ticket-title text-lowercase m-0">@talk.Title</h2>
+
+                            @if (talk.Speaker != null)
+                            {
+                                <p class="ticket-speaker text-uppercase mt-2 mb-2">
+                                    @talk.Speaker.FirstName @talk.Speaker.LastName
+                                    @if (!string.IsNullOrEmpty(talk.Speaker.Company))
+                                    {
+                                        <span> // @talk.Speaker.Company</span>
+                                    }
+                                </p>
+                            }
+
+                            <!-- ACCORDION TRIGGER -->
+                            <button class="btn-ticket-accordion text-uppercase mt-2"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="false"
+                                    aria-controls="@collapseId">
+                                <span class="btn-text">View Details</span>
+                                <i class="fa-solid fa-chevron-down accordion-arrow ms-1"></i>
+                            </button>
+
+                            <!-- ACCORDION DETAILS -->
+                            <div class="collapse mt-3" id="@collapseId">
+                                <div class="ticket-accordion-body p-3">
+                                    @if (!string.IsNullOrEmpty(talk.Description))
+                                    {
+                                        <p class="ticket-talk-description mb-3">
+                                            @talk.Description
+                                        </p>
+                                    }
+
+                                    @if (talk.Room != null)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <span class="ticket-meta-pill">
+                                                <i class="fa-solid fa-door-open me-1"></i>Location: @talk.Room.Name
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT TICKET STUB WITH REMOVE ACTION -->
+                    <div class="ticket-stub p-3 p-md-4 d-flex flex-column align-items-center justify-content-between">
+                        <div class="ticket-time-box text-center">
+                            <span class="d-block fw-bold fs-3 time-main">@talk.StartDateTime.ToString("H:mm")</span>
+                            <span class="small time-sub">@talk.EndDateTime.ToString("H:mm")</span>
+                        </div>
+
+                        <div>
+                            <img class="ticket-barcode" src="~/images/code.png" alt="Barcode" />
+                        </div>
+
+                        <!-- REMOVE FROM SCHEDULE FORM -->
+                        <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="talkId" value="@talk.Id" />
+                            <button type="submit" class="btn-ticket-remove" title="Remove from Schedule">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <!-- EMPTY STATE -->
+        <div class="no-conference text-center p-5">
+            <i class="fa-solid fa-bookmark fs-1 text-green mb-3"></i>
+            <h3 class="text-white text-lowercase mb-2">your schedule is empty</h3>
+            <p class="text-muted mb-4" style="font-family: var(--font-mono);">
+                Browse the conference schedule and click the star icon on any talk to save it here.
+            </p>
+            <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@conferenceId" class="btn-primary d-inline-flex align-items-center">
+                <i class="fa-solid fa-plus me-2"></i>Add Talks
+            </a>
+        </div>
+    }
+</div>

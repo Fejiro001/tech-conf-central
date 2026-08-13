@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var conferenceId = Context.Request.RouteValues["conferenceId"]
+                       ?? Context.Request.Query["conferenceId"].ToString();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,13 +31,13 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav gap-3 mt-3 mt-md-0 me-md-2">
                         <li class="nav-item">
-                            <a class="nav-link nav-btn" asp-area="" asp-controller="Home" asp-action="Index">CONFERENCES</a>
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Index" asp-route-conferenceId="@conferenceId">OVERVIEW</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Schedule">SCHEDULE</a>
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@conferenceId">SCHEDULE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Speakers">SPEAKERS</a>
+                            <a class="nav-link nav-btn" asp-area="" asp-controller="Conference" asp-action="Speakers" asp-route-conferenceId="@conferenceId">SPEAKERS</a>
                         </li>
                         <partial name="_LoginPartial" />
                     </ul>

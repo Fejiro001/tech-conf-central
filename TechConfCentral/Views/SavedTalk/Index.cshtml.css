@@ -1,0 +1,39 @@
+.app-alert {
+    background-color: var(--neutral-800);
+    border-radius: 0;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 1rem 1.25rem;
+}
+
+.app-alert.alert-success {
+    border: 1px solid var(--green-200);
+    color: var(--green-200);
+    box-shadow: 3px 3px 0 0 var(--green-200);
+}
+
+.app-alert.alert-warning {
+    border: 1px solid var(--yellow-100);
+    color: var(--yellow-100);
+    box-shadow: 3px 3px 0 0 var(--yellow-100);
+}
+/* Ticket Remove Action Button */
+.btn-ticket-remove {
+    background-color: var(--neutral-900);
+    color: var(--red-300, #ff5555);
+    border: 1px solid var(--neutral-900);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-ticket-remove:hover {
+    background-color: #ff5555;
+    color: #ffffff;
+    box-shadow: 2px 2px 0 0 var(--neutral-900);
+}

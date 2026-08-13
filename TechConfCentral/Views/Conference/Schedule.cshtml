@@ -14,7 +14,7 @@
 <div class="main-container">
     <!-- PAGE HEADER -->
     <header class="mb-4">
-        <span class="section-label">// PROGRAM SCHEDULE</span>
+        <span class="section-label">// PROGRAM_SCHEDULE</span>
         <h1 class="hero-title text-lowercase m-0">@Model.Conference?.Name</h1>
         <p class="hero-text mb-0">
             <i class="fa-regular fa-calendar me-2"></i>
@@ -86,7 +86,7 @@
         </form>
     </div>
 
-    <!-- TICKET-STYLE SCHEDULE TALKS -->
+    <!-- SCHEDULE TALKS -->
     @if (Model.Talks != null && Model.Talks.Any())
     {
         <div class="schedule-ticket-container d-flex flex-column gap-4">
