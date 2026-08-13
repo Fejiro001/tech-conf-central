@@ -16,10 +16,9 @@
     <header class="mb-4">
         <span class="section-label">// PROGRAM_SCHEDULE</span>
         <h1 class="hero-title text-lowercase m-0">@Model.Conference?.Name</h1>
-        <p class="hero-text mb-0">
-            <i class="fa-regular fa-calendar me-2"></i>
-            @Model.Conference?.StartDate.ToString("MMM d, yyyy") – @Model.Conference?.EndDate.ToString("MMM d, yyyy")
-            <span class="ms-3"><i class="fa-solid fa-location-dot me-2"></i>@Model.Conference?.Venue</span>
+        <p class="mb-0 text-white-50 my-3" style="font-size:14px;">
+            <i class="fa-regular fa-calendar me-1"></i>@Model.Conference?.StartDate.ToString("MMM d, yyyy") – @Model.Conference?.EndDate.ToString("MMM d, yyyy")
+            <span class="ms-2"><i class="fa-solid fa-location-dot me-1"></i>@Model.Conference?.Venue, @Model.Conference?.City @Model.Conference?.StateOrProvince, @Model.Conference?.Country</span>
         </p>
     </header>
 
@@ -79,7 +78,7 @@
 
             <!-- RESET FILTERS -->
             <div class="col-12 col-lg-2 d-flex">
-                <a asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" class="reset-btn btn-primary w-100 justify-content-center text-nowrap">
+                <a asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" class="reset-btn btn-primary w-100 justify-content-center text-nowrap mb-0">
                     <i class="fa-solid fa-rotate-left"></i> Reset
                 </a>
             </div>
@@ -146,8 +145,8 @@
                         </div>                        
                     </div>
 
-                    <!-- RIGHT TICKET STUB (TIMING & BARCODE) -->
-                    <div class="ticket-stub p-3 p-md-4 d-flex flex-column align-items-center justify-content-between">
+                    <!-- RIGHT TICKET STUB -->
+                    <div class="ticket-stub p-3 p-md-4 d-flex align-items-center justify-content-between">
                         <div class="ticket-time-box text-center">
                             <span class="d-block fw-bold time-main">@talk.StartDateTime.ToString("H:mm")</span>
                             <span class="small time-sub">@talk.EndDateTime.ToString("H:mm")</span>
@@ -163,8 +162,8 @@
                             <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="talkId" value="@talk.Id" />
-                                <button type="submit" class="btn-ticket-star active" title="Remove from Schedule">
-                                    <i class="fa-solid fa-star text-warning"></i>
+                                <button type="submit" class="btn-ticket-star" title="Remove from Schedule">
+                                    <i class="fa-solid fa-star active"></i>
                                 </button>
                             </form>
                         }

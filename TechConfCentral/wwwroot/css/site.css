@@ -197,8 +197,6 @@ p, span, a {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     padding: 0.65rem 2.25rem 0.65rem 1rem;
-    /* Custom Neon Green SVG Dropdown Arrow */
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23D1FF66' stroke-linecap='square' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
     background-repeat: no-repeat !important;
     background-position: right 0.75rem center !important;
     background-size: 14px 12px !important;
@@ -831,6 +829,52 @@ p, span, a {
 /* ==========================================================================
    CONFERENCE INDEX PAGE
    ========================================================================== */
+.schedule-filters {
+    background-color: var(--neutral-800);
+    border: 1px solid var(--neutral-600);
+}
+
+/* Main Ticket Content */
+.ticket-talk-title {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    color: var(--neutral-900);
+}
+
+.ticket-speaker-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    cursor: pointer;
+}
+
+.ticket-speaker:hover {
+    text-decoration: underline;
+}
+
+/* Right Ticket Stub */
+.ticket-stub {
+    border-left: 2px dashed var(--neutral-900);
+    min-width: 120px;
+    background-color: inherit;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.time-main {
+    font-family: var(--font-mono);
+    color: var(--neutral-900);
+    line-height: 1;
+}
+
+.time-sub {
+    font-family: var(--font-mono);
+    color: var(--neutral-800);
+}
+
 .ticket-card {
     display: flex;
     border: 1px solid var(--neutral-600);
@@ -958,7 +1002,6 @@ p, span, a {
     font-size: 1rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .hero-main-card {
         min-height: 200px;
@@ -1112,7 +1155,7 @@ p, span, a {
 
 /* Header Text */
 .tc-modal-speaker-name {
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 700;
     font-size: 2rem;
     color: #ffffff;
@@ -1120,7 +1163,7 @@ p, span, a {
 }
 
 .tc-modal-speaker-role {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.85rem;
     color: #94a3b8;
     letter-spacing: 0.5px;
@@ -1133,7 +1176,7 @@ p, span, a {
 
 /* Bio Text */
 .tc-modal-bio {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.92rem;
     line-height: 1.65;
     color: #cbd5e1;
@@ -1141,38 +1184,27 @@ p, span, a {
 
 /* Talk Label */
 .tc-talk-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-weight: 700;
     color: #a3e635;
     font-size: 0.95rem;
     letter-spacing: 1px;
 }
 
-/* Ticket Card */
-.tc-ticket-card {
-    display: flex;
-    background-color: #aae8f9;
-    color: #04121a;
-    overflow: hidden;
-}
-
 /* Ticket Keynote Badge */
 .tc-ticket-badge {
     background-color: #04121a;
-    color: #aae8f9;
     padding: 10px 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.tc-ticket-badge span {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 /* Ticket Body */
@@ -1185,7 +1217,7 @@ p, span, a {
 }
 
 .tc-ticket-title {
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 1.2;
@@ -1193,7 +1225,7 @@ p, span, a {
 }
 
 .tc-ticket-author {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     font-weight: 600;
     color: #04121a;
@@ -1214,20 +1246,16 @@ p, span, a {
 }
 
 .tc-ticket-time .time-main {
-    font-family: 'Chakra Petch', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 700;
     font-size: 1.25rem;
     line-height: 1;
 }
 
 .tc-ticket-time .time-sub {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     opacity: 0.8;
-}
-
-.tc-ticket-barcode {
-    color: #04121a;
 }
 
 /* Star Button inside Stub */
@@ -1248,4 +1276,64 @@ p, span, a {
 
 .tc-ticket-star-btn:hover {
     transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .tc-ticket-card {
+        flex-direction: column;
+    }
+
+    .tc-ticket-badge {
+        writing-mode: horizontal-tb;
+        transform: none;
+        border-left: none;
+        border-bottom: 1px solid var(--neutral-900);
+    }
+
+    .tc-ticket-stub {
+        width: 100%;
+        border-left: none;
+        border-top: 2px dashed var(--neutral-900);
+        flex-direction: row;
+    }
+
+    .tc-ticket-barcode {
+        width: 80px;
+    }
+}
+
+/* Star Button */
+.btn-ticket-star {
+    background-color: var(--neutral-900);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-top: 1rem;
+}
+
+.btn-ticket-star .active {
+    color: var(--green-200);
+}
+
+.btn-ticket-star:hover {
+    background-color: var(--green-200);
+    color: var(--neutral-900);
+}
+
+.btn-ticket-star .active:hover {
+    color: var(--neutral-900);
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
