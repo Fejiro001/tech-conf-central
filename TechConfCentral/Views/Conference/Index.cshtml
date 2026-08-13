@@ -65,12 +65,12 @@
             <div class="row g-3">
                 @foreach (Track track in displayTracks)
                 {
-                    <div class="col-6 col-md-3">
-                        <div class="track-card h-100">
+                    <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" asp-route-trackId="@track.Id" class="col-6 col-md-3">
+                        <div class="track-card track-hover h-100">
                             <h3 class="track-name" style="color:@track.Color;">@track.Name</h3>
                             <p class="track-desc">@track.Description</p>
                         </div>
-                    </div>
+                    </a>
                 }
             </div>
         </section>

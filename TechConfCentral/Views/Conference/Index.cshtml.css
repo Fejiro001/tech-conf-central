@@ -100,6 +100,11 @@
     box-shadow: 2px 2px 0 0 var(--neutral-100);
 }
 
+.track-card:hover{
+     border-color: var(--green-200);
+     box-shadow: 2px 2px 0 0 var(--green-200);
+}
+
 .track-name {
     font-family: var(--font-sans);
     font-size: 1.5rem;
@@ -134,5 +139,3 @@
     font-weight: 700;
     text-transform: uppercase;
 }
-
-
