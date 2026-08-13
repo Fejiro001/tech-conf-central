@@ -1233,6 +1233,7 @@ p, span, a, td {
     flex-shrink: 0;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--green-200);
 }
 
 .tc-modal-avatar img {
@@ -1366,6 +1367,11 @@ p, span, a, td {
     transform: scale(1.1);
 }
 
+.ticket-barcode {
+    max-width: 100%;
+    height: auto;
+}
+
 @media (max-width: 768px) {
     .tc-ticket-card {
         flex-direction: column;
@@ -1383,10 +1389,6 @@ p, span, a, td {
         border-left: none;
         border-top: 2px dashed var(--neutral-900);
         flex-direction: row;
-    }
-
-    .tc-ticket-barcode {
-        width: 80px;
     }
 }
 
@@ -1413,10 +1415,10 @@ p, span, a, td {
 .btn-ticket-star:hover {
     background-color: var(--green-200);
     color: var(--neutral-900);
-}
 
-.btn-ticket-star .active:hover {
+    .active {
     color: var(--neutral-900);
+}
 }
 
 .line-clamp-2 {

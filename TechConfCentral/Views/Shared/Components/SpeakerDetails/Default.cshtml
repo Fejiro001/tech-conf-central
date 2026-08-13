@@ -14,7 +14,7 @@
             <div class="tc-modal-speaker-info">
                 <h2 class="tc-modal-speaker-name m-0 text-lowercase">@speaker.FirstName @speaker.LastName</h2>
                 <p class="tc-modal-speaker-role m-0 mt-1">
-                    @speaker.JobTitle.ToUpper() @speaker.Company.ToUpper()
+                    @speaker.JobTitle.ToUpper() @@@speaker.Company.ToUpper()
                 </p>
             </div>
         </div>
@@ -30,16 +30,16 @@
 
         <hr class="tc-modal-divider" />
 
+        <div class="tc-talk-label mt-3">// TALK(S)</div>
         @foreach (Talk talk in speaker.Talks)
         {
             if (talk != null)
             {
                 var trackTextColor = !string.IsNullOrWhiteSpace(talk.Track?.Color) ? talk.Track.Color : "var(--green-200)";
+                var collapseId = $"talkDetails-{talk.Id}";
 
                 <!-- TALK TICKET CARD -->
-                <div class="tc-talk-section mt-4">
-                    <div class="tc-talk-label mb-3">// TALK</div>
-
+                <div class="tc-talk-section mt-2">
                     <div class="ticket-card" style="background-color:@trackTextColor;">
                         <!-- Vertical Badge -->
                         <div class="tc-ticket-badge" style="color:@trackTextColor;">
@@ -53,6 +53,37 @@
                                 @speaker.FirstName.ToUpper() @speaker.LastName.ToUpper()                         
                                 <span> // @talk.Speaker.Company</span>
                             </p>
+
+                            <!-- Collapsible details -->
+                            <div class="collapse mt-3" id="@collapseId">
+                                <div class="ticket-accordion-body">
+                                    @if (!string.IsNullOrEmpty(talk.Description))
+                                    {
+                                        <p class="ticket-talk-description line-clamp-2">
+                                            @talk.Description
+                                        </p>
+                                    }
+
+                                    @if (talk.Room != null)
+                                    {
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <span class="ticket-meta-pill">
+                                                Location: @talk.Room.Name
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <button class="btn-ticket-accordion text-uppercase mt-4"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#@collapseId"
+                                    aria-expanded="false"
+                                    aria-controls="@collapseId">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="btn-text">Talk Details</span>
+                            </button>
                         </div>
 
                         <!-- Ticket Stub -->

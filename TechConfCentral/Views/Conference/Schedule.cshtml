@@ -157,25 +157,37 @@
                         </div>
 
                         <!-- TOGGLE SAVE / REMOVE TALK -->
-                        @if (Model.SavedTalkIds.Contains(talk.Id))
+                        @if(User.Identity?.IsAuthenticated ?? false)
                         {
-                            <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="talkId" value="@talk.Id" />
-                                <button type="submit" class="btn-ticket-star" title="Remove from Schedule">
-                                    <i class="fa-solid fa-star active"></i>
-                                </button>
-                            </form>
-                        }
-                        else
+                            @if (Model.SavedTalkIds.Contains(talk.Id))
+                            {
+                                <form asp-controller="SavedTalk" asp-action="RemoveTalk" method="post" class="m-0">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="talkId" value="@talk.Id" />
+                                    <button type="submit" class="btn-ticket-star" title="Remove from Schedule">
+                                        <i class="fa-solid fa-star active"></i>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-controller="SavedTalk" asp-action="SaveTalk" method="post" class="m-0">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="talkId" value="@talk.Id" />
+                                    <button type="submit" class="btn-ticket-star" title="Save to Schedule">
+                                        <i class="fa-regular fa-star"></i>
+                                    </button>
+                                </form>
+                            }
+                        } else
                         {
-                            <form asp-controller="SavedTalk" asp-action="SaveTalk" method="post" class="m-0">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="talkId" value="@talk.Id" />
-                                <button type="submit" class="btn-ticket-star" title="Save to Schedule">
-                                    <i class="fa-regular fa-star"></i>
-                                </button>
-                            </form>
+                            <a asp-area="Identity"
+                               asp-page="/Account/Login"
+                               asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                               class="btn-ticket-star"
+                               title="Sign in to save this talk">
+                                <i class="fa-regular fa-star"></i>
+                            </a>
                         }
                     </div>
                 </div>
