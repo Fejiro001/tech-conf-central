@@ -53,17 +53,13 @@
         </div>
     </section>
 
-    @{
-        var displayTracks = Model.Tracks?.Where(t => !t.Name.Equals("Keynote", StringComparison.OrdinalIgnoreCase));
-    }
-
     <!-- TRACKS SECTION -->
-    @if (displayTracks != null && displayTracks.Any())
+    @if (Model.Tracks != null && Model.Tracks.Any())
     {
         <section class="tracks-section">
             <h2 class="section-label mb-4">// TRACKS</h2>
             <div class="row g-3">
-                @foreach (Track track in displayTracks)
+                @foreach (Track track in Model.Tracks)
                 {
                     <a asp-controller="Conference" asp-action="Schedule" asp-route-conferenceId="@Model.Conference?.Id" asp-route-trackId="@track.Id" class="col-6 col-md-3">
                         <div class="track-card track-hover h-100">
