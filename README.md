@@ -1,6 +1,6 @@
 # TechConfCentral
 
-TechConfCentral is an ASP.NET Core MVC web application for discovering and managing technology conferences. Users can browse conferences, view schedules, explore speakers, save talks to a personal schedule, and administrators can manage conference information through a secured administration portal.
+TechConfCentral is an ASP.NET Core MVC web application for discovering and managing technology conferences. Users can browse conferences, view schedules, explore speakers, save talks to a personal schedule, and administrators can manage conference information through a secure administration portal.
 
 ## Homepage
 ![Homepage](./home.png)
