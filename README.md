@@ -181,7 +181,7 @@ Relationships include:
 
 ---
 
-## Getting Started
+## How to Install/Run
 
 ### Prerequisites
 
